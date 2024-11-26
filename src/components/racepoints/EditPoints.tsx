@@ -20,7 +20,7 @@ function EditPoints({
 
   return (
     <Box marginBlock={15} width={"80%"} marginInline={"auto"}>
-      <Field label={"Points: "} color={"#cecece"}>
+      <Field label={"Points: "} color={"#cecece"} fontSize={"md"}>
         <TextInput
           fontSize={16}
           value={input}
