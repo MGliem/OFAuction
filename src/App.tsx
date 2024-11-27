@@ -59,6 +59,14 @@ function App() {
     setPoints({ ...points, troll: trollPoints });
   };
 
+  const nextAuction = () => {
+    setAuctionNumber((current) => current + 1);
+    setCurrentItem("");
+    const newPoints = { ...points };
+    newPoints[currentWinningRace] -= currentWinningPoints;
+    setPoints(newPoints);
+  };
+
   return (
     <>
       <Box paddingTop={5} paddingBottom={30} borderBottom={"2px solid #cecece"}>
@@ -108,14 +116,13 @@ function App() {
           </Button>
         </Box>
       </Box>
-      <Box textAlign={"center"} marginTop={30}>
-        <Button size={"lg"} variant={"surface"} onClick={() => setShowEdit(!showEdit)}>{showEdit ? <><MdOutlineSave />{"Save"}</> : <><MdOutlineModeEdit />{"Edit"}</>}</Button>
       <Box>
         <AuctionCard
           races={races}
           auctionNumber={auctionNumber}
           currentItem={currentItem}
           setCurrentItem={setCurrentItem}
+          nextAuction={nextAuction}
           setCurrentWinningRace={setCurrentWinningRace}
           currentWinningPoints={currentWinningPoints}
           setCurrentWinningPoints={setCurrentWinningPoints}
