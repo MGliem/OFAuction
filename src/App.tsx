@@ -4,6 +4,7 @@ import { Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { type Race } from "./types";
+import AuctionCard from "./components/auction/AuctionCard";
 
 const tauren: Race = {
   name: "Tauren",
@@ -25,6 +26,8 @@ const troll: Race = {
   color: "#34709d",
 };
 
+const races = [tauren, orc, undead, troll];
+
 function App() {
   const [points, setPoints] = useState({
     tauren: 0,
@@ -33,6 +36,12 @@ function App() {
     troll: 0,
   });
   const [showEdit, setShowEdit] = useState(true);
+  const [auctionNumber, setAuctionNumber] = useState(1);
+  const [currentItem, setCurrentItem] = useState("");
+  const [currentWinningRace, setCurrentWinningRace] = useState<
+    "tauren" | "orc" | "undead" | "troll"
+  >("tauren");
+  const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
 
   const setTaurenPoints = (taurenPoints: number) => {
     setPoints({ ...points, tauren: taurenPoints });
@@ -51,37 +60,68 @@ function App() {
   };
 
   return (
-    <Box paddingTop={5} paddingBottom={30} borderBottom={"2px solid #cecece"}>
-      <Box display="flex" justifyContent="center" paddingInline={5} gap={5}>
-        <PointsCard
-          race={tauren}
-          showEdit={showEdit}
-          points={points.tauren}
-          setPoints={setTaurenPoints}
-        />
-        <PointsCard
-          race={orc}
-          showEdit={showEdit}
-          points={points.orc}
-          setPoints={setOrcPoints}
-        />
-        <PointsCard
-          race={undead}
-          showEdit={showEdit}
-          points={points.undead}
-          setPoints={setUndeadPoints}
-        />
-        <PointsCard
-          race={troll}
-          showEdit={showEdit}
-          points={points.troll}
-          setPoints={setTrollPoints}
-        />
+    <>
+      <Box paddingTop={5} paddingBottom={30} borderBottom={"2px solid #cecece"}>
+        <Box display="flex" justifyContent="center" paddingInline={5} gap={5}>
+          <PointsCard
+            race={tauren}
+            showEdit={showEdit}
+            points={points.tauren}
+            setPoints={setTaurenPoints}
+          />
+          <PointsCard
+            race={orc}
+            showEdit={showEdit}
+            points={points.orc}
+            setPoints={setOrcPoints}
+          />
+          <PointsCard
+            race={undead}
+            showEdit={showEdit}
+            points={points.undead}
+            setPoints={setUndeadPoints}
+          />
+          <PointsCard
+            race={troll}
+            showEdit={showEdit}
+            points={points.troll}
+            setPoints={setTrollPoints}
+          />
+        </Box>
+        <Box textAlign={"center"} marginTop={30}>
+          <Button
+            size={"lg"}
+            variant={"surface"}
+            onClick={() => setShowEdit(!showEdit)}
+          >
+            {showEdit ? (
+              <>
+                <MdOutlineSave />
+                {"Save"}
+              </>
+            ) : (
+              <>
+                <MdOutlineModeEdit />
+                {"Edit"}
+              </>
+            )}
+          </Button>
+        </Box>
       </Box>
       <Box textAlign={"center"} marginTop={30}>
         <Button size={"lg"} variant={"surface"} onClick={() => setShowEdit(!showEdit)}>{showEdit ? <><MdOutlineSave />{"Save"}</> : <><MdOutlineModeEdit />{"Edit"}</>}</Button>
+      <Box>
+        <AuctionCard
+          races={races}
+          auctionNumber={auctionNumber}
+          currentItem={currentItem}
+          setCurrentItem={setCurrentItem}
+          setCurrentWinningRace={setCurrentWinningRace}
+          currentWinningPoints={currentWinningPoints}
+          setCurrentWinningPoints={setCurrentWinningPoints}
+        />
       </Box>
-    </Box>
+    </>
   );
 }
 
