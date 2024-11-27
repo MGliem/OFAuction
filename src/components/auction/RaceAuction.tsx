@@ -55,6 +55,7 @@ function RaceAuction({
     if (e.key === "Enter") {
       setCurrentBid(+customBidInput);
       setCustomBidInput("")
+      setCustomBidInput("");
     }
   };
 
