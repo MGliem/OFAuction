@@ -3,7 +3,7 @@ import PointsCard from "./components/racepoints/PointsCard";
 import { Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
-import { type Race } from "./Types";
+import { type Race } from "./types";
 
 const tauren: Race = {
   name: "Tauren",

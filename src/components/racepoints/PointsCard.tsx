@@ -1,5 +1,5 @@
 import { Card } from "@chakra-ui/react";
-import { type Race } from "@/Types";
+import { type Race } from "@/types";
 import EditPoints from "./EditPoints";
 import ShowPoints from "./ShowPoints";
 
