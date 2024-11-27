@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
+import HistoryCard from "./components/history/HistoryCard";
 
 const tauren: Race = {
   name: "Tauren",
@@ -121,7 +122,8 @@ function App() {
         </Box>
       </Box>
       {isFirstTimePointsSet ? (
-        <Box>
+        <>
+        <Box borderBottom={"2px solid #cecece"}>
           <AuctionCard
             races={races}
             auctionNumber={auctionNumber}
@@ -133,6 +135,8 @@ function App() {
             setCurrentWinningPoints={setCurrentWinningPoints}
           />
         </Box>
+        <HistoryCard />
+        </>
       ) : (
         ""
       )}
