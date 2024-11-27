@@ -1,0 +1,9 @@
+services:
+  web:
+    container_name: OFAuction
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "2154:80"
