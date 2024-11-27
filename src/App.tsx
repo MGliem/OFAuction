@@ -36,12 +36,20 @@ function App() {
     troll: 0,
   });
   const [showEdit, setShowEdit] = useState(true);
+  const [isFirstTimePointsSet, setIsFirstTimePointsSet] = useState(false);
   const [auctionNumber, setAuctionNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState("");
   const [currentWinningRace, setCurrentWinningRace] = useState<
     "tauren" | "orc" | "undead" | "troll"
   >("tauren");
   const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
+
+  const savePoints = () => {
+    setShowEdit(!showEdit);
+    if (!isFirstTimePointsSet) {
+      setIsFirstTimePointsSet(true);
+    }
+  };
 
   const setTaurenPoints = (taurenPoints: number) => {
     setPoints({ ...points, tauren: taurenPoints });
@@ -97,11 +105,7 @@ function App() {
           />
         </Box>
         <Box textAlign={"center"} marginTop={30}>
-          <Button
-            size={"lg"}
-            variant={"surface"}
-            onClick={() => setShowEdit(!showEdit)}
-          >
+          <Button size={"lg"} variant={"surface"} onClick={() => savePoints()}>
             {showEdit ? (
               <>
                 <MdOutlineSave />
@@ -116,18 +120,22 @@ function App() {
           </Button>
         </Box>
       </Box>
-      <Box>
-        <AuctionCard
-          races={races}
-          auctionNumber={auctionNumber}
-          currentItem={currentItem}
-          setCurrentItem={setCurrentItem}
-          nextAuction={nextAuction}
-          setCurrentWinningRace={setCurrentWinningRace}
-          currentWinningPoints={currentWinningPoints}
-          setCurrentWinningPoints={setCurrentWinningPoints}
-        />
-      </Box>
+      {isFirstTimePointsSet ? (
+        <Box>
+          <AuctionCard
+            races={races}
+            auctionNumber={auctionNumber}
+            currentItem={currentItem}
+            setCurrentItem={setCurrentItem}
+            nextAuction={nextAuction}
+            setCurrentWinningRace={setCurrentWinningRace}
+            currentWinningPoints={currentWinningPoints}
+            setCurrentWinningPoints={setCurrentWinningPoints}
+          />
+        </Box>
+      ) : (
+        ""
+      )}
     </>
   );
 }
