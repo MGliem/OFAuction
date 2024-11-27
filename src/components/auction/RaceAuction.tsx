@@ -54,7 +54,6 @@ function RaceAuction({
   const handleCustomKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       setCurrentBid(+customBidInput);
-      setCustomBidInput("")
       setCustomBidInput("");
     }
   };
@@ -110,7 +109,7 @@ function RaceAuction({
           </Flex>
           <Flex justifyContent={"center"}>
             {isCurrentBidEdit ? (
-            <TextInput
+              <TextInput
                 value={currentBidInput}
                 onChange={(e) => validateEditBid(e.target.value)}
                 onKeyUp={(e) => handleBidKeyUp(e)}
