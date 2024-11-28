@@ -59,7 +59,7 @@ function AuctionCard({
               width={"50%"}
               value={currentItem}
               onChange={(e) => setCurrentItem(e.target.value)}
-              placeholder={"eg: slot 1,2,3..."}
+              placeholder={"Example: slot 1,2,3..."}
               _placeholder={{ color: "#a3a3a3" }}
             />
           </Field>

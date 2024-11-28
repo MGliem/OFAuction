@@ -110,11 +110,18 @@ function RaceAuction({
           </Flex>
           <Flex justifyContent={"center"}>
             {isCurrentBidEdit ? (
-              <TextInput
-                value={currentBidInput}
-                onChange={(e) => validateEditBid(e.target.value)}
-                onKeyUp={(e) => handleBidKeyUp(e)}
-              />
+              <Tooltip
+                content="Press Enter key to confirm"
+                showArrow
+                openDelay={100}
+                closeDelay={300}
+              >
+                <TextInput
+                  value={currentBidInput}
+                  onChange={(e) => validateEditBid(e.target.value)}
+                  onKeyUp={(e) => handleBidKeyUp(e)}
+                />
+              </Tooltip>
             ) : (
               <Text
                 textAlign={"center"}
@@ -144,10 +151,11 @@ function RaceAuction({
           <Tooltip
             content="Press Enter key to confirm"
             showArrow
+            interactive
             openDelay={100}
             closeDelay={300}
           >
-            <Field label={"Custom:"} color={"#cecece"}>
+            <Field label={"Add a custom amount:"} color={"#cecece"} fontSize={"md"}>
               <TextInput
                 value={customBidInput}
                 onChange={(e) => validateCustomBid(e.target.value)}
