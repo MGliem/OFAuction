@@ -1,9 +1,7 @@
+import { AuctionHistory } from "@/types";
 import { Box, Card, Table } from "@chakra-ui/react";
 
-const tempDataAuctions = [
-  { auction: 1, item: "test", winner: "testCategory", points: 500 },
-];
-function HistoryCard() {
+function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
   return (
     <Card.Root
       width={"80%"}
@@ -29,6 +27,7 @@ function HistoryCard() {
               <Table.Header>
                 <Table.Row bg={"#2a2a2a"}>
                   <Table.ColumnHeader
+                    paddingLeft={5}
                     color={"#cecece"}
                     fontWeight="bold"
                     fontSize={"lg"}
@@ -51,6 +50,7 @@ function HistoryCard() {
                   </Table.ColumnHeader>
                   <Table.ColumnHeader
                     textAlign={"end"}
+                    paddingRight={5}
                     color={"#cecece"}
                     fontWeight={"bold"}
                     fontSize={"lg"}
@@ -60,19 +60,28 @@ function HistoryCard() {
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {tempDataAuctions.map((item, i) => (
+                {auctionHistory.map((item, i) => (
                   <Table.Row key={i} bg={"#3d3d3d"}>
-                    <Table.Cell color={"#cecece"} fontSize={"md"}>
+                    <Table.Cell
+                      color={"#cecece"}
+                      fontSize={"md"}
+                      paddingLeft={5}
+                    >
                       {item.auction}
                     </Table.Cell>
                     <Table.Cell color={"#cecece"} fontSize={"md"}>
                       {item.item}
                     </Table.Cell>
-                    <Table.Cell color={"#cecece"} fontSize={"md"}>
+                    <Table.Cell
+                      color={"#cecece"}
+                      fontSize={"md"}
+                      textTransform={"capitalize"}
+                    >
                       {item.winner}
                     </Table.Cell>
                     <Table.Cell
                       textAlign={"end"}
+                      paddingRight={5}
                       color={"#cecece"}
                       fontSize={"md"}
                     >
