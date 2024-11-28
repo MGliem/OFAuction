@@ -5,6 +5,7 @@ import { MdOutlineModeEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
 import TextInput from "@/components/ui/TextInput";
 import { Field } from "@/components/ui/field";
+import { Tooltip } from "@/components/ui/tooltip";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
 
 function RaceAuction({
@@ -140,13 +141,20 @@ function RaceAuction({
           >
             {"+50"}
           </Button>
-          <Field label={"Custom:"} color={"#cecece"}>
-            <TextInput
-              value={customBidInput}
-              onChange={(e) => validateCustomBid(e.target.value)}
-              onKeyUp={(e) => handleCustomKeyUp(e)}
-            />
-          </Field>
+          <Tooltip
+            content="Press Enter key to confirm"
+            showArrow
+            openDelay={100}
+            closeDelay={300}
+          >
+            <Field label={"Custom:"} color={"#cecece"}>
+              <TextInput
+                value={customBidInput}
+                onChange={(e) => validateCustomBid(e.target.value)}
+                onKeyUp={(e) => handleCustomKeyUp(e)}
+              />
+            </Field>
+          </Tooltip>
         </Flex>
       </Card.Body>
     </Card.Root>
