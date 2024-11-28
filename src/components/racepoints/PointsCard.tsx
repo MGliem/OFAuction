@@ -38,7 +38,7 @@ function PointsCard({
           {race.name}
         </Card.Title>
         {showEdit ? (
-          <EditPoints setPoints={setPoints} />
+          <EditPoints points={points} setPoints={setPoints} />
         ) : (
           <ShowPoints points={points} />
         )}
