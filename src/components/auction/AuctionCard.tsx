@@ -14,6 +14,7 @@ function AuctionCard({
   setCurrentWinningRace,
   currentWinningPoints,
   setCurrentWinningPoints,
+  totalPoints,
 }: {
   races: Race[];
   auctionNumber: number;
@@ -23,6 +24,7 @@ function AuctionCard({
   setCurrentWinningRace: (race: "tauren" | "orc" | "undead" | "troll") => void;
   currentWinningPoints: number;
   setCurrentWinningPoints: (points: number) => void;
+  totalPoints: { tauren: number; orc: number; undead: number; troll: number; };
 }) {
   const checkCurrentWinner = (race: string, points: number) => {
     if (points > currentWinningPoints) {
@@ -74,6 +76,7 @@ function AuctionCard({
               race={race}
               auctionNumber={auctionNumber}
               checkCurrentWinner={checkCurrentWinner}
+              totalPoints={totalPoints[race.name.toLowerCase() as keyof typeof totalPoints]}
             />
           ))}
         </Flex>
