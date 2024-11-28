@@ -3,8 +3,9 @@ import PointsCard from "./components/racepoints/PointsCard";
 import { Box } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
-import { type Race } from "./types";
+import { AuctionHistory, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
+import HistoryCard from "./components/history/HistoryCard";
 
 const tauren: Race = {
   name: "Tauren",
@@ -40,9 +41,10 @@ function App() {
   const [auctionNumber, setAuctionNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState("");
   const [currentWinningRace, setCurrentWinningRace] = useState<
-    "tauren" | "orc" | "undead" | "troll"
-  >("tauren");
+    "tauren" | "orc" | "undead" | "troll" | ""
+  >("");
   const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
+  const [auctionHistory, setAuctionHistory] = useState<AuctionHistory[]>([]);
 
   const savePoints = () => {
     setShowEdit(!showEdit);
@@ -68,11 +70,24 @@ function App() {
   };
 
   const nextAuction = () => {
+    setAuctionHistory([
+      ...auctionHistory,
+      {
+        auction: auctionNumber,
+        item: currentItem,
+        winner: currentWinningRace,
+        points: currentWinningPoints,
+      },
+    ]);
+
     setAuctionNumber((current) => current + 1);
     setCurrentItem("");
     const newPoints = { ...points };
-    newPoints[currentWinningRace] -= currentWinningPoints;
+    if (currentWinningRace !== "")
+      newPoints[currentWinningRace] -= currentWinningPoints;
     setPoints(newPoints);
+    setCurrentWinningPoints(0);
+    setCurrentWinningRace("");
   };
 
   return (
@@ -121,18 +136,21 @@ function App() {
         </Box>
       </Box>
       {isFirstTimePointsSet ? (
-        <Box>
-          <AuctionCard
-            races={races}
-            auctionNumber={auctionNumber}
-            currentItem={currentItem}
-            setCurrentItem={setCurrentItem}
-            nextAuction={nextAuction}
-            setCurrentWinningRace={setCurrentWinningRace}
-            currentWinningPoints={currentWinningPoints}
-            setCurrentWinningPoints={setCurrentWinningPoints}
-          />
-        </Box>
+        <>
+          <Box borderBottom={"2px solid #cecece"}>
+            <AuctionCard
+              races={races}
+              auctionNumber={auctionNumber}
+              currentItem={currentItem}
+              setCurrentItem={setCurrentItem}
+              nextAuction={nextAuction}
+              setCurrentWinningRace={setCurrentWinningRace}
+              currentWinningPoints={currentWinningPoints}
+              setCurrentWinningPoints={setCurrentWinningPoints}
+            />
+          </Box>
+          <HistoryCard auctionHistory={auctionHistory} />
+        </>
       ) : (
         ""
       )}

@@ -5,7 +5,7 @@ import App from "./App.tsx";
 
 const themeConfig = defineConfig({
   globalCss: {
-    "body": {
+    "html, body": {
       background: "#262626",
       color: "#cecece"
     }
