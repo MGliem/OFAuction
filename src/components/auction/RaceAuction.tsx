@@ -51,6 +51,7 @@ function RaceAuction({
     if (e.key === "Enter") {
       if (isStringPositiveNumber(currentBidInput)) {
         setCurrentBid(+currentBidInput);
+        setCurrentBidInput(currentBidInput);
         setIsCurrentBidEdit(false);
       }
     }
