@@ -147,6 +147,7 @@ function App() {
               setCurrentWinningRace={setCurrentWinningRace}
               currentWinningPoints={currentWinningPoints}
               setCurrentWinningPoints={setCurrentWinningPoints}
+              totalPoints={points}
             />
           </Box>
           <HistoryCard auctionHistory={auctionHistory} />

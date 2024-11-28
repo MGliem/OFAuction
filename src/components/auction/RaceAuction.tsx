@@ -1,9 +1,9 @@
 import { Race } from "@/types";
 import { Card, Flex, Text } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
-import { MdOutlineModeEdit } from "react-icons/md";
 import { useEffect, useState } from "react";
 import TextInput from "@/components/ui/TextInput";
+import { MdOutlineModeEdit } from "react-icons/md";
 import { Field } from "@/components/ui/field";
 import { Tooltip } from "@/components/ui/tooltip";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
@@ -12,15 +12,18 @@ function RaceAuction({
   race,
   checkCurrentWinner,
   auctionNumber,
+  totalPoints,
 }: {
   race: Race;
   checkCurrentWinner: (race: string, points: number) => void;
   auctionNumber: number;
+  totalPoints: number;
 }) {
   const [currentBid, setCurrentBid] = useState(0);
   const [isCurrentBidEdit, setIsCurrentBidEdit] = useState(false);
   const [currentBidInput, setCurrentBidInput] = useState("0");
   const [customBidInput, setCustomBidInput] = useState("");
+  const [noPointsLeft, setNoPointsLeft] = useState(false);
 
   useEffect(() => {
     checkCurrentWinner(race.name.toLowerCase(), currentBid);
@@ -140,13 +143,14 @@ function RaceAuction({
             size={"xs"}
             fontSize={15}
             marginBlock={4}
+            disabled={totalPoints - 50 < 0}
             onClick={() => {
               setCurrentBid((current) => current + 50);
               setCurrentBidInput((current) => String(+current + 50));
               setIsCurrentBidEdit(false);
             }}
           >
-            {"+50"}
+            {totalPoints - 50 < 0 ? "Not enough points" : "+50"}
           </Button>
           <Tooltip
             content="Press Enter key to confirm"
