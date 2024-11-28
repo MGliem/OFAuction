@@ -77,7 +77,7 @@ function AuctionCard({
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
         </Text>
-        <Flex gap={5}>
+        <Flex gap={5} justifyContent={"center"}>
           {races.map((race, i) => (
             <RaceAuction
               key={i}
