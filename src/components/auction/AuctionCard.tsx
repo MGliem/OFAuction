@@ -4,6 +4,7 @@ import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { Race } from "@/types";
 import RaceAuction from "./RaceAuction";
+import { useEffect } from "react";
 
 function AuctionCard({
   races,
@@ -21,10 +22,12 @@ function AuctionCard({
   currentItem: string;
   nextAuction: () => void;
   setCurrentItem: (item: string) => void;
-  setCurrentWinningRace: (race: "tauren" | "orc" | "undead" | "troll") => void;
+  setCurrentWinningRace: (
+    race: "tauren" | "orc" | "undead" | "troll" | "",
+  ) => void;
   currentWinningPoints: number;
   setCurrentWinningPoints: (points: number) => void;
-  totalPoints: { tauren: number; orc: number; undead: number; troll: number; };
+  totalPoints: { tauren: number; orc: number; undead: number; troll: number };
 }) {
   const checkCurrentWinner = (race: string, points: number) => {
     if (points > currentWinningPoints) {
@@ -39,6 +42,11 @@ function AuctionCard({
       }
     }
   };
+
+  useEffect(() => {
+    setCurrentWinningRace("");
+    setCurrentWinningPoints(0);
+  }, [auctionNumber, setCurrentWinningRace, setCurrentWinningPoints]);
 
   return (
     <Card.Root
@@ -76,7 +84,9 @@ function AuctionCard({
               race={race}
               auctionNumber={auctionNumber}
               checkCurrentWinner={checkCurrentWinner}
-              totalPoints={totalPoints[race.name.toLowerCase() as keyof typeof totalPoints]}
+              totalPoints={
+                totalPoints[race.name.toLowerCase() as keyof typeof totalPoints]
+              }
             />
           ))}
         </Flex>

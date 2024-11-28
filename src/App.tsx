@@ -86,8 +86,6 @@ function App() {
     if (currentWinningRace !== "")
       newPoints[currentWinningRace] -= currentWinningPoints;
     setPoints(newPoints);
-    setCurrentWinningPoints(0);
-    setCurrentWinningRace("");
   };
 
   return (
