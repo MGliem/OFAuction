@@ -14,16 +14,29 @@ function OverBidModal({
   open,
   setOpen,
   race,
+  totalPoints,
+  customBid,
+  setCustomBidInput,
+  currentBid,
+  setCurrentBid,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
   race: string;
+  totalPoints: number;
+  customBid: string;
+  setCustomBidInput: (input: string) => void;
+  currentBid: number;
+  setCurrentBid: (bid: number) => void;
 }) {
   return (
     <DialogRoot
       lazyMount
       open={open}
-      onOpenChange={(e) => setOpen(e.open)}
+      onOpenChange={(e) => {
+        setOpen(e.open);
+        setCustomBidInput("");
+      }}
       placement={"center"}
       closeOnInteractOutside={false}
       closeOnEscape={false}
@@ -33,14 +46,24 @@ function OverBidModal({
           <DialogTitle fontSize={"xl"}>Not enough points</DialogTitle>
         </DialogHeader>
         <DialogBody fontSize={"lg"}>
-          <Text>{`${race} has only 5 points left.`}</Text>
-          <Text>{"They want to bid 10 points"}</Text>
+          <Text>{`${race} has only ${totalPoints} points left.`}</Text>
+          <Text>{`They want to bid ${customBid} points`}</Text>
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="surface">Cancel</Button>
           </DialogActionTrigger>
-          <Button>Save</Button>
+          <Button
+            variant={"solid"}
+            colorPalette={"cyan"}
+            onClick={() => {
+              setCurrentBid(+customBid + currentBid);
+              setCustomBidInput("");
+              setOpen(false);
+            }}
+          >
+            {"Force bid"}
+          </Button>
         </DialogFooter>
       </DialogContent>
     </DialogRoot>

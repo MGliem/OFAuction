@@ -180,7 +180,16 @@ function RaceAuction({
           </Flex>
         </Card.Body>
       </Card.Root>
-      <OverBidModal open={openForceBidModal} setOpen={setOpenForceBidModal}/>
+      <OverBidModal
+        open={openForceBidModal}
+        setOpen={setOpenForceBidModal}
+        race={race.name}
+        totalPoints={totalPoints}
+        customBid={customBidInput}
+        setCurrentBid={setCurrentBid}
+        setCustomBidInput={setCustomBidInput}
+        currentBid={currentBid}
+      />
     </>
   );
 }
