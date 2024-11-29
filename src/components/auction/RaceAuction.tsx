@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import TextInput from "@/components/ui/TextInput";
 import { MdOutlineModeEdit } from "react-icons/md";
-import { Field } from "@/components/ui/field";
 import { Tooltip } from "@/components/ui/tooltip";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
 import OverBidModal from "./OverBidModal";
