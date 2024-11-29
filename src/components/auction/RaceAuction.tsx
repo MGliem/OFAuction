@@ -8,6 +8,7 @@ import { Field } from "@/components/ui/field";
 import { Tooltip } from "@/components/ui/tooltip";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
 import OverBidModal from "./OverBidModal";
+import CustomBidModal from "./CustomBidModal";
 
 function RaceAuction({
   race,
@@ -25,6 +26,7 @@ function RaceAuction({
   const [currentBidInput, setCurrentBidInput] = useState("0");
   const [customBidInput, setCustomBidInput] = useState("");
   const [openForceBidModal, setOpenForceBidModal] = useState(false);
+  const [openCustomBidModal, setOpenCustomBidModal] = useState(false);
 
   useEffect(() => {
     checkCurrentWinner(race.name.toLowerCase(), currentBid);
@@ -41,37 +43,27 @@ function RaceAuction({
     }
   };
 
-  const validateCustomBid = (bid: string) => {
-    if (isStringPositiveNumber(bid)) {
-      setCustomBidInput(String(+bid));
-    }
-  };
-
   const handleBidKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
-      if (isStringPositiveNumber(currentBidInput)) {
-        setCurrentBid(+currentBidInput);
-        setCurrentBidInput(currentBidInput);
-        setIsCurrentBidEdit(false);
-      }
+      setCurrentBid(+currentBidInput);
+      setCurrentBidInput(currentBidInput);
+      setIsCurrentBidEdit(false);
     }
   };
 
-  const handleCustomKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === "Enter") {
-      if (totalPoints - +customBidInput < 0) {
-        setOpenForceBidModal(true);
-      } else {
-        setCurrentBid(+customBidInput);
-        setCustomBidInput("");
-      }
+  const handleCloseModal = () => {
+    if (totalPoints - +customBidInput < 0) {
+      setOpenForceBidModal(true);
+    } else {
+      setCurrentBid((current) => +customBidInput + current);
+      setCustomBidInput("");
     }
   };
 
   return (
     <>
       <Card.Root
-        width={{base: "100%", lg: "60%", "2xl": "320px"}}
+        width={{ base: "100%", lg: "60%", "2xl": "320px" }}
         backgroundColor={"#181818"}
         borderColor={race.color}
         borderWidth={"2px"}
@@ -160,25 +152,14 @@ function RaceAuction({
             >
               {totalPoints - 50 < 0 ? "Not enough points" : "+50"}
             </Button>
-            <Tooltip
-              content="Press Enter key to confirm"
-              showArrow
-              interactive
-              openDelay={100}
-              closeDelay={300}
+            <Button
+              variant={"surface"}
+              size={"xs"}
+              fontSize={15}
+              onClick={() => setOpenCustomBidModal(true)}
             >
-              <Field
-                label={"Add custom amount:"}
-                color={"#cecece"}
-                fontSize={"md"}
-              >
-                <TextInput
-                  value={customBidInput}
-                  onChange={(e) => validateCustomBid(e.target.value)}
-                  onKeyUp={(e) => handleCustomKeyUp(e)}
-                />
-              </Field>
-            </Tooltip>
+              {"+Custom amount"}
+            </Button>
           </Flex>
         </Card.Body>
       </Card.Root>
@@ -192,6 +173,13 @@ function RaceAuction({
         setCurrentBidInput={setCurrentBidInput}
         setCustomBidInput={setCustomBidInput}
         currentBid={currentBid}
+      />
+      <CustomBidModal
+        open={openCustomBidModal}
+        setOpen={setOpenCustomBidModal}
+        customBid={customBidInput}
+        setCustomBidInput={setCustomBidInput}
+        handleCloseModal={handleCloseModal}
       />
     </>
   );
