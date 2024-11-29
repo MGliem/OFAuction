@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PointsCard from "./components/racepoints/PointsCard";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { AuctionHistory, type Race } from "./types";
@@ -91,32 +91,42 @@ function App() {
   return (
     <>
       <Box paddingTop={5} paddingBottom={30} borderBottom={"2px solid #cecece"}>
-        <Box display="flex" justifyContent="center" paddingInline={5} gap={5}>
-          <PointsCard
-            race={tauren}
-            showEdit={showEdit}
-            points={points.tauren}
-            setPoints={setTaurenPoints}
-          />
-          <PointsCard
-            race={orc}
-            showEdit={showEdit}
-            points={points.orc}
-            setPoints={setOrcPoints}
-          />
-          <PointsCard
-            race={undead}
-            showEdit={showEdit}
-            points={points.undead}
-            setPoints={setUndeadPoints}
-          />
-          <PointsCard
-            race={troll}
-            showEdit={showEdit}
-            points={points.troll}
-            setPoints={setTrollPoints}
-          />
-        </Box>
+        <Flex
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={{ base: "column", lg: "row" }}
+          paddingInline={5}
+          gap={5}
+        >
+          <Flex flexDirection={{ base: "column", md: "row" }} justifyContent={"end"} alignItems={"center"} w={"100%"} gap={5}>
+            <PointsCard
+              race={tauren}
+              showEdit={showEdit}
+              points={points.tauren}
+              setPoints={setTaurenPoints}
+            />
+            <PointsCard
+              race={orc}
+              showEdit={showEdit}
+              points={points.orc}
+              setPoints={setOrcPoints}
+            />
+          </Flex>
+          <Flex flexDirection={{ base: "column", md: "row" }} justifyContent={"start"} alignItems={"center"} w={"100%"} gap={5}>
+            <PointsCard
+              race={undead}
+              showEdit={showEdit}
+              points={points.undead}
+              setPoints={setUndeadPoints}
+            />
+            <PointsCard
+              race={troll}
+              showEdit={showEdit}
+              points={points.troll}
+              setPoints={setTrollPoints}
+            />
+          </Flex>
+        </Flex>
         <Box textAlign={"center"} marginTop={30}>
           <Button size={"lg"} variant={"surface"} onClick={() => savePoints()}>
             {showEdit ? (
