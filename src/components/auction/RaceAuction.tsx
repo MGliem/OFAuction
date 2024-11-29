@@ -71,7 +71,7 @@ function RaceAuction({
   return (
     <>
       <Card.Root
-        width={"320px"}
+        width={{base: "100%", lg: "60%", "2xl": "320px"}}
         backgroundColor={"#181818"}
         borderColor={race.color}
         borderWidth={"2px"}
@@ -103,6 +103,7 @@ function RaceAuction({
                 color={"#cecece"}
                 fontSize={20}
                 marginBottom={1}
+                textWrap={"nowrap"}
               >
                 {"Current bid"}
               </Text>
@@ -167,7 +168,7 @@ function RaceAuction({
               closeDelay={300}
             >
               <Field
-                label={"Add a custom amount:"}
+                label={"Add custom amount:"}
                 color={"#cecece"}
                 fontSize={"md"}
               >
