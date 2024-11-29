@@ -16,7 +16,7 @@ function PointsCard({
 }) {
   return (
     <Card.Root
-      width={"320px"}
+      width={{ base:"90%", md: "60%", xl: "320px"}}
       height={"200px"}
       backgroundColor={"#181818"}
       borderColor={race.color}
