@@ -8,36 +8,41 @@ import {
   DialogActionTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Text } from "@chakra-ui/react";
+import TextInput from "@/components/ui/TextInput";
+import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
 
-function OverBidModal({
+function CustomBidModal({
   open,
   setOpen,
-  race,
-  totalPoints,
   customBid,
   setCustomBidInput,
-  currentBid,
-  setCurrentBid,
-  setCurrentBidInput
+  handleCloseModal,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
-  race: string;
-  totalPoints: number;
   customBid: string;
   setCustomBidInput: (input: string) => void;
-currentBid: number;
-  setCurrentBid: (bid: number) => void;
-  setCurrentBidInput: (bid: string) => void;
+  handleCloseModal: () => void;
 }) {
+  const validateCustomBid = (bid: string) => {
+    if (isStringPositiveNumber(bid)) {
+      setCustomBidInput(String(+bid));
+    }
+  };
+
+  const handleCustomKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
+    if (e.key === "Enter") {
+      handleCloseModal();
+      setOpen(false);
+    }
+  };
+
   return (
     <DialogRoot
       lazyMount
       open={open}
       onOpenChange={(e) => {
         setOpen(e.open);
-        setCustomBidInput("");
       }}
       placement={"center"}
       closeOnInteractOutside={false}
@@ -45,27 +50,37 @@ currentBid: number;
     >
       <DialogContent bg={"#171717"}>
         <DialogHeader>
-          <DialogTitle fontSize={"xl"}>Not enough points</DialogTitle>
+          <DialogTitle fontSize={"xl"}>Custom amount</DialogTitle>
         </DialogHeader>
         <DialogBody fontSize={"lg"}>
-          <Text>{`${race} has only ${totalPoints} points left.`}</Text>
-          <Text>{`They want to bid ${customBid} more points.`}</Text>
+          <TextInput
+            value={customBid}
+            onChange={(e) => validateCustomBid(e.target.value)}
+            onKeyUp={(e) => handleCustomKeyUp(e)}
+          />
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
-            <Button variant="surface">Cancel</Button>
+            <Button
+              variant={"surface"}
+              onClick={() => {
+                setCustomBidInput("");
+                setOpen(false);
+              }}
+            >
+              Cancel
+            </Button>
           </DialogActionTrigger>
           <Button
             variant={"solid"}
             colorPalette={"cyan"}
+            width={"150px"}
             onClick={() => {
-              setCurrentBid(+customBid + currentBid);
-              setCurrentBidInput(String(+customBid + currentBid))
-              setCustomBidInput("");
+              handleCloseModal();
               setOpen(false);
             }}
           >
-            {"Force bid"}
+            {"Add"}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -73,4 +88,4 @@ currentBid: number;
   );
 }
 
-export default OverBidModal;
+export default CustomBidModal;
