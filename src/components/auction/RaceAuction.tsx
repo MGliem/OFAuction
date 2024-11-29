@@ -188,6 +188,7 @@ function RaceAuction({
         totalPoints={totalPoints}
         customBid={customBidInput}
         setCurrentBid={setCurrentBid}
+        setCurrentBidInput={setCurrentBidInput}
         setCustomBidInput={setCustomBidInput}
         currentBid={currentBid}
       />

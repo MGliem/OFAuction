@@ -19,6 +19,7 @@ function OverBidModal({
   setCustomBidInput,
   currentBid,
   setCurrentBid,
+  setCurrentBidInput
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -26,8 +27,9 @@ function OverBidModal({
   totalPoints: number;
   customBid: string;
   setCustomBidInput: (input: string) => void;
-  currentBid: number;
+currentBid: number;
   setCurrentBid: (bid: number) => void;
+  setCurrentBidInput: (bid: string) => void;
 }) {
   return (
     <DialogRoot
@@ -58,6 +60,7 @@ function OverBidModal({
             colorPalette={"cyan"}
             onClick={() => {
               setCurrentBid(+customBid + currentBid);
+              setCurrentBidInput(String(+customBid + currentBid))
               setCustomBidInput("");
               setOpen(false);
             }}
