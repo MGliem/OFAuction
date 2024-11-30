@@ -19,7 +19,7 @@ function OverBidModal({
   setCustomBidInput,
   currentBid,
   setCurrentBid,
-  setCurrentBidInput
+  setCurrentBidInput,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -27,7 +27,7 @@ function OverBidModal({
   totalPoints: number;
   customBid: string;
   setCustomBidInput: (input: string) => void;
-currentBid: number;
+  currentBid: number;
   setCurrentBid: (bid: number) => void;
   setCurrentBidInput: (bid: string) => void;
 }) {
@@ -48,8 +48,8 @@ currentBid: number;
           <DialogTitle fontSize={"xl"}>Not enough points</DialogTitle>
         </DialogHeader>
         <DialogBody fontSize={"lg"}>
-          <Text>{`${race} has only ${totalPoints} points left.`}</Text>
-          <Text>{`They want to bid ${customBid} more points.`}</Text>
+          <Text>{`${race} has ${totalPoints} points left.`}</Text>
+          <Text>{`They want to bid ${customBid}${currentBid > 0 ? ` + ${currentBid} = ${+customBid + +currentBid}` : ""} points.`}</Text>
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
@@ -60,7 +60,7 @@ currentBid: number;
             colorPalette={"cyan"}
             onClick={() => {
               setCurrentBid(+customBid + currentBid);
-              setCurrentBidInput(String(+customBid + currentBid))
+              setCurrentBidInput(String(+customBid + currentBid));
               setCustomBidInput("");
               setOpen(false);
             }}

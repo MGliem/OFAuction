@@ -51,10 +51,12 @@ function RaceAuction({
   };
 
   const handleCloseModal = () => {
-    if (totalPoints - +customBidInput < 0) {
+    if (totalPoints - (+customBidInput + currentBid) < 0) {
       setOpenForceBidModal(true);
     } else {
-      setCurrentBid((current) => +customBidInput + current);
+      const newCurrentBid = currentBid + +customBidInput;
+      setCurrentBid(newCurrentBid);
+      setCurrentBidInput(String(newCurrentBid));
       setCustomBidInput("");
     }
   };
