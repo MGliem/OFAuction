@@ -10,6 +10,32 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
     setSortedHistory(auctionHistory);
   }, [auctionHistory]);
 
+  const sortHistory = (
+    sortBy: "auction" | "item" | "winner" | "points",
+    isNumeric: boolean,
+  ) => {
+    const newSortedHistory = [...sortedHistory];
+
+    if (isNumeric) {
+      newSortedHistory.sort((a, b) => {
+        return +a[sortBy] - +b[sortBy];
+      });
+    }
+
+    if (!isNumeric) {
+      newSortedHistory.sort((a, b) => {
+        if (a[sortBy] > b[sortBy]) {
+          return -1;
+        }
+        if (a[sortBy] < b[sortBy]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+    setSortedHistory(newSortedHistory);
+  };
 
   return (
     <Card.Root
@@ -40,6 +66,8 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                     color={"#cecece"}
                     fontWeight="bold"
                     fontSize={"lg"}
+                    onClick={() => sortHistory("auction", true)}
+                    cursor={"pointer"}
                   >
                     {"Auction"}
                   </Table.ColumnHeader>
@@ -47,6 +75,8 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                     color={"#cecece"}
                     fontWeight={"bold"}
                     fontSize={"lg"}
+                    onClick={() => sortHistory("item", false)}
+                    cursor={"pointer"}
                   >
                     {"Item(s)"}
                   </Table.ColumnHeader>
@@ -54,6 +84,8 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                     color={"#cecece"}
                     fontWeight={"bold"}
                     fontSize={"lg"}
+                    onClick={() => sortHistory("winner", false)}
+                    cursor={"pointer"}
                   >
                     {"Winner"}
                   </Table.ColumnHeader>
@@ -63,13 +95,15 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                     color={"#cecece"}
                     fontWeight={"bold"}
                     fontSize={"lg"}
+                    onClick={() => sortHistory("points", true)}
+                    cursor={"pointer"}
                   >
                     {"Points"}
                   </Table.ColumnHeader>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
-                {auctionHistory.map((item, i) => (
+                {sortedHistory.map((item, i) => (
                   <Table.Row key={i} bg={"#3d3d3d"}>
                     <Table.Cell
                       color={"#cecece"}
