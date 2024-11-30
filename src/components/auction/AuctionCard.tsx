@@ -2,7 +2,7 @@ import { Box, Card, Flex, Text } from "@chakra-ui/react";
 import TextInput from "@/components/ui/TextInput";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
-import { Race } from "@/types";
+import { type Race, type RaceColor } from "@/types";
 import RaceAuction from "./RaceAuction";
 import { useEffect } from "react";
 

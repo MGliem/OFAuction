@@ -1,4 +1,1 @@
-export type Race = {
-  name: "Tauren" | "Orc" | "Undead" | "Troll";
-  color: string;
-}
+export type Race = "tauren" | "orc" | "undead" | "troll";

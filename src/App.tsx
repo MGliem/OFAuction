@@ -3,27 +3,27 @@ import PointsCard from "./components/racepoints/PointsCard";
 import { Box, Flex } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
-import { AuctionHistory, type Race } from "./types";
+import { type AuctionHistory, type RaceColor, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
 import HistoryCard from "./components/history/HistoryCard";
 import { motion } from "motion/react";
 
-const tauren: Race = {
+const tauren: RaceColor = {
   name: "Tauren",
   color: "#6a3633",
 };
 
-const orc: Race = {
+const orc: RaceColor = {
   name: "Orc",
   color: "#3b9d34",
 };
 
-const undead: Race = {
+const undead: RaceColor = {
   name: "Undead",
   color: "#6f349d",
 };
 
-const troll: Race = {
+const troll: RaceColor = {
   name: "Troll",
   color: "#34709d",
 };
@@ -41,10 +41,6 @@ function App() {
   const [isFirstTimePointsSet, setIsFirstTimePointsSet] = useState(false);
   const [auctionNumber, setAuctionNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState("");
-  const [currentWinningRace, setCurrentWinningRace] = useState<
-    "tauren" | "orc" | "undead" | "troll" | ""
-  >("");
-  const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
   const [auctionHistory, setAuctionHistory] = useState<AuctionHistory[]>([]);
 
   const savePoints = () => {

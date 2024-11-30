@@ -1,4 +1,4 @@
-import { Race } from "@/types";
+import { type Race, type RaceColor } from "@/types";
 import { Card, Flex, Text } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ function RaceAuction({
   totalPoints,
   animeDelay,
 }: {
-  race: Race;
+  race: RaceColor;
   checkCurrentWinner: (race: string, points: number) => void;
   auctionNumber: number;
   totalPoints: number;

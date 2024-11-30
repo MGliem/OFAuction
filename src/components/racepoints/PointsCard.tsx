@@ -11,10 +11,10 @@ function PointsCard({
   setPoints,
   animeDelay,
 }: {
-  race: Race;
+  race: RaceColor;
   showEdit: boolean;
   points: number;
-  setPoints: (p: number) => void;
+  setPoints: (points: number, race: Race) => void;
   animeDelay: number;
 }) {
   return (
