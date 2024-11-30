@@ -80,7 +80,7 @@ function CustomBidModal({
               setOpen(false);
             }}
           >
-            {"Add"}
+            {"Set"}
           </Button>
         </DialogFooter>
       </DialogContent>

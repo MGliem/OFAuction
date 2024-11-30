@@ -2,9 +2,8 @@ import { Box, Card, Flex, Text } from "@chakra-ui/react";
 import TextInput from "@/components/ui/TextInput";
 import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
-import { Race } from "@/types";
+import { type Race, type RaceColor } from "@/types";
 import RaceAuction from "./RaceAuction";
-import { useEffect } from "react";
 
 function AuctionCard({
   races,
@@ -12,42 +11,17 @@ function AuctionCard({
   currentItem,
   nextAuction,
   setCurrentItem,
-  setCurrentWinningRace,
-  currentWinningPoints,
-  setCurrentWinningPoints,
   totalPoints,
+  setBidPoints,
 }: {
-  races: Race[];
+  races: RaceColor[];
   auctionNumber: number;
   currentItem: string;
   nextAuction: () => void;
   setCurrentItem: (item: string) => void;
-  setCurrentWinningRace: (
-    race: "tauren" | "orc" | "undead" | "troll" | "",
-  ) => void;
-  currentWinningPoints: number;
-  setCurrentWinningPoints: (points: number) => void;
   totalPoints: { tauren: number; orc: number; undead: number; troll: number };
+  setBidPoints: (bid: number, race: Race) => void;
 }) {
-  const checkCurrentWinner = (race: string, points: number) => {
-    if (points > currentWinningPoints) {
-      if (
-        race === "tauren" ||
-        race === "orc" ||
-        race === "undead" ||
-        race === "troll"
-      ) {
-        setCurrentWinningRace(race);
-        setCurrentWinningPoints(points);
-      }
-    }
-  };
-
-  useEffect(() => {
-    setCurrentWinningRace("");
-    setCurrentWinningPoints(0);
-  }, [auctionNumber, setCurrentWinningRace, setCurrentWinningPoints]);
-
   return (
     <Card.Root
       width={"90%"}
@@ -93,24 +67,24 @@ function AuctionCard({
             <RaceAuction
               race={races[0]}
               auctionNumber={auctionNumber}
-              checkCurrentWinner={checkCurrentWinner}
               totalPoints={
                 totalPoints[
                   races[0].name.toLowerCase() as keyof typeof totalPoints
                 ]
               }
               animeDelay={0.2}
+              setBidPoints={setBidPoints}
             />
             <RaceAuction
               race={races[1]}
               auctionNumber={auctionNumber}
-              checkCurrentWinner={checkCurrentWinner}
               totalPoints={
                 totalPoints[
                   races[1].name.toLowerCase() as keyof typeof totalPoints
                 ]
               }
               animeDelay={0.3}
+              setBidPoints={setBidPoints}
             />
           </Flex>
           <Flex
@@ -123,24 +97,24 @@ function AuctionCard({
             <RaceAuction
               race={races[2]}
               auctionNumber={auctionNumber}
-              checkCurrentWinner={checkCurrentWinner}
               totalPoints={
                 totalPoints[
                   races[2].name.toLowerCase() as keyof typeof totalPoints
                 ]
               }
               animeDelay={0.4}
+              setBidPoints={setBidPoints}
             />
             <RaceAuction
               race={races[3]}
               auctionNumber={auctionNumber}
-              checkCurrentWinner={checkCurrentWinner}
               totalPoints={
                 totalPoints[
                   races[3].name.toLowerCase() as keyof typeof totalPoints
                 ]
               }
               animeDelay={0.5}
+              setBidPoints={setBidPoints}
             />
           </Flex>
         </Flex>

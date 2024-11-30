@@ -2,7 +2,7 @@ import { Field } from "@/components/ui/field";
 import TextInput from "../ui/TextInput";
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
-import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
+import isStringNumber from "@/helpers/isStringNumber";
 
 function EditPoints({
   points,
@@ -14,8 +14,14 @@ function EditPoints({
   const [input, setInput] = useState(points.toString());
 
   const validatePoints = (points: string) => {
-    if (isStringPositiveNumber(points)) {
-      setInput(String(+points));
+    if (points === "") {
+      setInput("");
+      setPoints(0);
+    } else if (points === "-") {
+      setInput("-");
+      setPoints(0);
+    } else if (isStringNumber(points)) {
+      setInput(String(points));
       setPoints(parseInt(points, 10));
     }
   };
