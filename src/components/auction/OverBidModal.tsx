@@ -15,21 +15,15 @@ function OverBidModal({
   setOpen,
   race,
   totalPoints,
-  customBid,
-  setCustomBidInput,
-  currentBid,
-  setCurrentBid,
-  setCurrentBidInput,
+  customBidInput,
+  handleForceCloseModal,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
   race: string;
   totalPoints: number;
-  customBid: string;
-  setCustomBidInput: (input: string) => void;
-  currentBid: number;
-  setCurrentBid: (bid: number) => void;
-  setCurrentBidInput: (bid: string) => void;
+  customBidInput: string;
+  handleForceCloseModal: () => void;
 }) {
   return (
     <DialogRoot
@@ -37,7 +31,6 @@ function OverBidModal({
       open={open}
       onOpenChange={(e) => {
         setOpen(e.open);
-        setCustomBidInput("");
       }}
       placement={"center"}
       closeOnInteractOutside={false}
@@ -49,7 +42,7 @@ function OverBidModal({
         </DialogHeader>
         <DialogBody fontSize={"lg"}>
           <Text>{`${race} has ${totalPoints} points left.`}</Text>
-          <Text>{`They want to bid ${customBid}${currentBid > 0 ? ` + ${currentBid} = ${+customBid + +currentBid}` : ""} points.`}</Text>
+          <Text>{`They want to bid ${customBidInput} points.`}</Text>
         </DialogBody>
         <DialogFooter>
           <DialogActionTrigger asChild>
@@ -59,9 +52,7 @@ function OverBidModal({
             variant={"solid"}
             colorPalette={"cyan"}
             onClick={() => {
-              setCurrentBid(+customBid + currentBid);
-              setCurrentBidInput(String(+customBid + currentBid));
-              setCustomBidInput("");
+              handleForceCloseModal();
               setOpen(false);
             }}
           >

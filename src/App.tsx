@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PointsCard from "./components/racepoints/PointsCard";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { type AuctionHistory, type RaceColor, type Race } from "./types";
@@ -37,6 +37,12 @@ function App() {
     undead: 0,
     troll: 0,
   });
+  const [bids, setBids] = useState({
+    tauren: 0,
+    orc: 0,
+    undead: 0,
+    troll: 0,
+  });
   const [showEdit, setShowEdit] = useState(true);
   const [isFirstTimePointsSet, setIsFirstTimePointsSet] = useState(false);
   const [auctionNumber, setAuctionNumber] = useState(1);
@@ -50,23 +56,25 @@ function App() {
     }
   };
 
-  const setTaurenPoints = (taurenPoints: number) => {
-    setPoints({ ...points, tauren: taurenPoints });
+  const setRacePoints = (changePoints: number, race: Race) => {
+    const newPoints = { ...points };
+    newPoints[race] = changePoints;
+    setPoints(newPoints);
   };
 
-  const setOrcPoints = (orcPoints: number) => {
-    setPoints({ ...points, orc: orcPoints });
-  };
-
-  const setUndeadPoints = (undeadPoints: number) => {
-    setPoints({ ...points, undead: undeadPoints });
-  };
-
-  const setTrollPoints = (trollPoints: number) => {
-    setPoints({ ...points, troll: trollPoints });
+  const setBidPoints = (bid: number, race: Race) => {
+    const newBids = { ...bids };
+    newBids[race] = bid;
+    setBids(newBids);
   };
 
   const nextAuction = () => {
+    const [currentWinningRace, currentWinningPoints] = Object.entries(
+      bids,
+    ).reduce((max, current) => {
+      return current[1] > max[1] ? current : max;
+    });
+
     setAuctionHistory([
       ...auctionHistory,
       {
@@ -80,8 +88,14 @@ function App() {
     setAuctionNumber((current) => current + 1);
     setCurrentItem("");
     const newPoints = { ...points };
-    if (currentWinningRace !== "")
+    if (
+      currentWinningRace === "tauren" ||
+      currentWinningRace === "orc" ||
+      currentWinningRace === "undead" ||
+      currentWinningRace === "troll"
+    ) {
       newPoints[currentWinningRace] -= currentWinningPoints;
+    }
     setPoints(newPoints);
   };
 
@@ -96,6 +110,14 @@ function App() {
         border={"2px solid #cecece"}
         borderRadius={"10px"}
       >
+        <Text
+          color={"#cecece"}
+          fontWeight={"bold"}
+          fontSize={"xl"}
+          marginBottom={10}
+        >
+          {"Points"}
+        </Text>
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
@@ -113,14 +135,14 @@ function App() {
               race={tauren}
               showEdit={showEdit}
               points={points.tauren}
-              setPoints={setTaurenPoints}
+              setPoints={setRacePoints}
               animeDelay={0}
             />
             <PointsCard
               race={orc}
               showEdit={showEdit}
               points={points.orc}
-              setPoints={setOrcPoints}
+              setPoints={setRacePoints}
               animeDelay={0.1}
             />
           </Flex>
@@ -135,14 +157,14 @@ function App() {
               race={undead}
               showEdit={showEdit}
               points={points.undead}
-              setPoints={setUndeadPoints}
+              setPoints={setRacePoints}
               animeDelay={0.2}
             />
             <PointsCard
               race={troll}
               showEdit={showEdit}
               points={points.troll}
-              setPoints={setTrollPoints}
+              setPoints={setRacePoints}
               animeDelay={0.3}
             />
           </Flex>
@@ -187,10 +209,8 @@ function App() {
                 currentItem={currentItem}
                 setCurrentItem={setCurrentItem}
                 nextAuction={nextAuction}
-                setCurrentWinningRace={setCurrentWinningRace}
-                currentWinningPoints={currentWinningPoints}
-                setCurrentWinningPoints={setCurrentWinningPoints}
                 totalPoints={points}
+                setBidPoints={setBidPoints}
               />
             </motion.div>
           </Box>
