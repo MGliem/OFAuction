@@ -3,7 +3,7 @@ import { Card, Flex, Text } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import TextInput from "@/components/ui/TextInput";
-import { MdOutlineModeEdit } from "react-icons/md";
+import { MdAdd, MdOutlineModeEdit } from "react-icons/md";
 import { Tooltip } from "@/components/ui/tooltip";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
 import OverBidModal from "./OverBidModal";
@@ -151,9 +151,13 @@ function RaceAuction({
                 setIsCurrentBidEdit(false);
               }}
             >
-              {totalPoints - (currentBid + 50) < 0
-                ? "Not enough points"
-                : "+50"}
+              {totalPoints - (currentBid + 50) < 0 ? (
+                "Not enough points"
+              ) : (
+                <>
+                  <MdAdd /> <Text as={"span"}>{"50"}</Text>
+                </>
+              )}
             </Button>
             <Button
               variant={"surface"}
@@ -161,7 +165,7 @@ function RaceAuction({
               fontSize={15}
               onClick={() => setOpenCustomBidModal(true)}
             >
-              {"+Custom amount"}
+              <MdAdd /> <Text as={"span"}>{"Custom amount"}</Text>
             </Button>
           </Flex>
         </Card.Body>
