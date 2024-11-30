@@ -142,14 +142,16 @@ function RaceAuction({
               size={"xs"}
               fontSize={15}
               marginBlock={4}
-              disabled={totalPoints - 50 < 0}
+              disabled={totalPoints - (currentBid + 50) < 0}
               onClick={() => {
                 setCurrentBid((current) => current + 50);
                 setCurrentBidInput((current) => String(+current + 50));
                 setIsCurrentBidEdit(false);
               }}
             >
-              {totalPoints - 50 < 0 ? "Not enough points" : "+50"}
+              {totalPoints - (currentBid + 50) < 0
+                ? "Not enough points"
+                : "+50"}
             </Button>
             <Button
               variant={"surface"}
