@@ -52,7 +52,7 @@ function AuctionCard({
     <Card.Root
       width={"90%"}
       marginInline={"auto"}
-      marginBlock={20}
+      marginBlock={5}
       backgroundColor={"#181818"}
       border={"2px solid #cecece"}
       borderRadius={"10px"}
@@ -66,7 +66,7 @@ function AuctionCard({
         <Box margin={8}>
           <Field label="Item(s):" color={"#cecece"} fontSize={"md"}>
             <TextInput
-              width={{base: "100%", md:"420px"}}
+              width={{ base: "100%", md: "420px" }}
               value={currentItem}
               onChange={(e) => setCurrentItem(e.target.value)}
               placeholder={"Example: slot 1,2,3..."}
@@ -77,50 +77,71 @@ function AuctionCard({
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
         </Text>
-        <Flex gap={5} justifyContent={"center"} alignItems={"center"} flexDirection={{ base: "column", lg: "row" }}>
-          <Flex gap={5} flexDirection={{ base: "column", md: "row" }} w={"100%"} justifyContent={"end"} alignItems={"center"}>
-          <RaceAuction
-            race={races[0]}
-            auctionNumber={auctionNumber}
-            checkCurrentWinner={checkCurrentWinner}
-            totalPoints={
-              totalPoints[
-                races[0].name.toLowerCase() as keyof typeof totalPoints
-              ]
-            }
-          />
-          <RaceAuction
-            race={races[1]}
-            auctionNumber={auctionNumber}
-            checkCurrentWinner={checkCurrentWinner}
-            totalPoints={
-              totalPoints[
-                races[1].name.toLowerCase() as keyof typeof totalPoints
-              ]
-            }
-          />
+        <Flex
+          gap={5}
+          justifyContent={"center"}
+          alignItems={"center"}
+          flexDirection={{ base: "column", lg: "row" }}
+        >
+          <Flex
+            gap={5}
+            flexDirection={{ base: "column", md: "row" }}
+            w={"100%"}
+            justifyContent={"end"}
+            alignItems={"center"}
+          >
+            <RaceAuction
+              race={races[0]}
+              auctionNumber={auctionNumber}
+              checkCurrentWinner={checkCurrentWinner}
+              totalPoints={
+                totalPoints[
+                  races[0].name.toLowerCase() as keyof typeof totalPoints
+                ]
+              }
+              animeDelay={0.2}
+            />
+            <RaceAuction
+              race={races[1]}
+              auctionNumber={auctionNumber}
+              checkCurrentWinner={checkCurrentWinner}
+              totalPoints={
+                totalPoints[
+                  races[1].name.toLowerCase() as keyof typeof totalPoints
+                ]
+              }
+              animeDelay={0.3}
+            />
           </Flex>
-          <Flex gap={5} flexDirection={{ base: "column", md: "row" }} w={"100%"} justifyContent={"start"} alignItems={"center"}>
-          <RaceAuction
-            race={races[2]}
-            auctionNumber={auctionNumber}
-            checkCurrentWinner={checkCurrentWinner}
-            totalPoints={
-              totalPoints[
-                races[2].name.toLowerCase() as keyof typeof totalPoints
-              ]
-            }
-          />
-          <RaceAuction
-            race={races[3]}
-            auctionNumber={auctionNumber}
-            checkCurrentWinner={checkCurrentWinner}
-            totalPoints={
-              totalPoints[
-                races[3].name.toLowerCase() as keyof typeof totalPoints
-              ]
-            }
-          />
+          <Flex
+            gap={5}
+            flexDirection={{ base: "column", md: "row" }}
+            w={"100%"}
+            justifyContent={"start"}
+            alignItems={"center"}
+          >
+            <RaceAuction
+              race={races[2]}
+              auctionNumber={auctionNumber}
+              checkCurrentWinner={checkCurrentWinner}
+              totalPoints={
+                totalPoints[
+                  races[2].name.toLowerCase() as keyof typeof totalPoints
+                ]
+              }
+              animeDelay={0.4}
+            />
+            <RaceAuction
+              race={races[3]}
+              auctionNumber={auctionNumber}
+              checkCurrentWinner={checkCurrentWinner}
+              totalPoints={
+                totalPoints[
+                  races[3].name.toLowerCase() as keyof typeof totalPoints
+                ]
+              }
+              animeDelay={0.5}
+            />
           </Flex>
         </Flex>
         <Box marginInline={"auto"} marginTop={7}>

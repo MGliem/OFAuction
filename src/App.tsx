@@ -6,6 +6,7 @@ import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { AuctionHistory, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
 import HistoryCard from "./components/history/HistoryCard";
+import { motion } from "motion/react";
 
 const tauren: Race = {
   name: "Tauren",
@@ -90,75 +91,120 @@ function App() {
 
   return (
     <>
-      <Box paddingTop={5} paddingBottom={30} borderBottom={"2px solid #cecece"}>
+      <Box
+        w={"90%"}
+        marginInline={"auto"}
+        marginTop={5}
+        padding={5}
+        backgroundColor={"#181818"}
+        border={"2px solid #cecece"}
+        borderRadius={"10px"}
+      >
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
           flexDirection={{ base: "column", lg: "row" }}
-          paddingInline={5}
           gap={5}
         >
-          <Flex flexDirection={{ base: "column", md: "row" }} justifyContent={"end"} alignItems={"center"} w={"100%"} gap={5}>
+          <Flex
+            flexDirection={{ base: "column", md: "row" }}
+            justifyContent={"end"}
+            alignItems={"center"}
+            w={"100%"}
+            gap={5}
+          >
             <PointsCard
               race={tauren}
               showEdit={showEdit}
               points={points.tauren}
               setPoints={setTaurenPoints}
+              animeDelay={0}
             />
             <PointsCard
               race={orc}
               showEdit={showEdit}
               points={points.orc}
               setPoints={setOrcPoints}
+              animeDelay={0.1}
             />
           </Flex>
-          <Flex flexDirection={{ base: "column", md: "row" }} justifyContent={"start"} alignItems={"center"} w={"100%"} gap={5}>
+          <Flex
+            flexDirection={{ base: "column", md: "row" }}
+            justifyContent={"start"}
+            alignItems={"center"}
+            w={"100%"}
+            gap={5}
+          >
             <PointsCard
               race={undead}
               showEdit={showEdit}
               points={points.undead}
               setPoints={setUndeadPoints}
+              animeDelay={0.2}
             />
             <PointsCard
               race={troll}
               showEdit={showEdit}
               points={points.troll}
               setPoints={setTrollPoints}
+              animeDelay={0.3}
             />
           </Flex>
         </Flex>
         <Box textAlign={"center"} marginTop={30}>
-          <Button size={"lg"} variant={"surface"} onClick={() => savePoints()}>
-            {showEdit ? (
-              <>
-                <MdOutlineSave />
-                {"Save"}
-              </>
-            ) : (
-              <>
-                <MdOutlineModeEdit />
-                {"Edit"}
-              </>
-            )}
-          </Button>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <Button
+              size={"lg"}
+              variant={"surface"}
+              onClick={() => savePoints()}
+            >
+              {showEdit ? (
+                <>
+                  <MdOutlineSave />
+                  {"Save"}
+                </>
+              ) : (
+                <>
+                  <MdOutlineModeEdit />
+                  {"Edit"}
+                </>
+              )}
+            </Button>
+          </motion.div>
         </Box>
       </Box>
       {isFirstTimePointsSet ? (
         <>
-          <Box borderBottom={"2px solid #cecece"}>
-            <AuctionCard
-              races={races}
-              auctionNumber={auctionNumber}
-              currentItem={currentItem}
-              setCurrentItem={setCurrentItem}
-              nextAuction={nextAuction}
-              setCurrentWinningRace={setCurrentWinningRace}
-              currentWinningPoints={currentWinningPoints}
-              setCurrentWinningPoints={setCurrentWinningPoints}
-              totalPoints={points}
-            />
+          <Box>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            >
+              <AuctionCard
+                races={races}
+                auctionNumber={auctionNumber}
+                currentItem={currentItem}
+                setCurrentItem={setCurrentItem}
+                nextAuction={nextAuction}
+                setCurrentWinningRace={setCurrentWinningRace}
+                currentWinningPoints={currentWinningPoints}
+                setCurrentWinningPoints={setCurrentWinningPoints}
+                totalPoints={points}
+              />
+            </motion.div>
           </Box>
-          <HistoryCard auctionHistory={auctionHistory} />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+          >
+            <HistoryCard auctionHistory={auctionHistory} />
+          </motion.div>
         </>
       ) : (
         ""

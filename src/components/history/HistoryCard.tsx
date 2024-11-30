@@ -39,9 +39,8 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
 
   return (
     <Card.Root
-      width={"80%"}
+      width={"90%"}
       marginInline={"auto"}
-      marginBlock={20}
       backgroundColor={"#181818"}
       border={"2px solid #cecece"}
       boxShadow={"3px 2px 10px -1px #000000"}
