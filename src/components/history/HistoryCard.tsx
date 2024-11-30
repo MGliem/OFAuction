@@ -1,7 +1,16 @@
 import { AuctionHistory } from "@/types";
 import { Box, Card, Table } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 
 function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
+  const [sortedHistory, setSortedHistory] =
+    useState<AuctionHistory[]>(auctionHistory);
+
+  useEffect(() => {
+    setSortedHistory(auctionHistory);
+  }, [auctionHistory]);
+
+
   return (
     <Card.Root
       width={"80%"}
