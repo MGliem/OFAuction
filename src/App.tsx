@@ -88,6 +88,7 @@ function App() {
     setAuctionNumber((current) => current + 1);
     setCurrentItem("");
     const newPoints = { ...points };
+
     if (
       currentWinningRace === "tauren" ||
       currentWinningRace === "orc" ||
@@ -96,6 +97,14 @@ function App() {
     ) {
       newPoints[currentWinningRace] -= currentWinningPoints;
     }
+
+    setBids({
+      tauren: 0,
+      orc: 0,
+      undead: 0,
+      troll: 0,
+    });
+
     setPoints(newPoints);
   };
 
