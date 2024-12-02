@@ -7,6 +7,7 @@ import { type AuctionHistory, type RaceColor, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
 import HistoryCard from "./components/history/HistoryCard";
 import { motion } from "motion/react";
+import shuffleArray from "./helpers/shuffleArray";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -29,6 +30,10 @@ const troll: RaceColor = {
 };
 
 const races = [tauren, orc, undead, troll];
+const staticGroupedRaces = [
+  [tauren, orc],
+  [undead, troll],
+];
 
 function App() {
   const [points, setPoints] = useState({
@@ -48,6 +53,18 @@ function App() {
   const [auctionNumber, setAuctionNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState("");
   const [auctionHistory, setAuctionHistory] = useState<AuctionHistory[]>([]);
+  const [randomizedGroupedRaces, setRandomizedGroupedRaces] =
+    useState<RaceColor[][]>(staticGroupedRaces);
+
+  const randomizeAndGroupRaces = () => {
+    const randomizeRaces = shuffleArray(races);
+
+    const groupedRaces = [];
+    for (let i = 0; i < randomizeRaces.length; i += 2) {
+      groupedRaces.push(randomizeRaces.slice(i, i + 2));
+    }
+    setRandomizedGroupedRaces(groupedRaces);
+  };
 
   const savePoints = () => {
     setShowEdit(!showEdit);
