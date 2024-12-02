@@ -2,7 +2,6 @@ import { type Race, type RaceColor } from "@/types";
 import { Box, Card, Flex, Text } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { MdAdd } from "react-icons/md";
 import OverBidModal from "./OverBidModal";
 import CustomBidModal from "./CustomBidModal";
 import { motion } from "motion/react";
@@ -13,12 +12,14 @@ function RaceAuction({
   totalPoints,
   animeDelay,
   setBidPoints,
+  currentWinningPoints,
 }: {
   race: RaceColor;
   auctionNumber: number;
   totalPoints: number;
   animeDelay: number;
   setBidPoints: (bid: number, race: Race) => void;
+  currentWinningPoints: number;
 }) {
   const [currentBid, setCurrentBid] = useState(0);
   const [customBidInput, setCustomBidInput] = useState("");
@@ -102,32 +103,30 @@ function RaceAuction({
                   variant={"surface"}
                   colorPalette={"accent"}
                   size={"xs"}
-                  fontSize={15}
+                  fontSize={18}
                   marginBlock={4}
-                  disabled={totalPoints - (currentBid + 50) < 0}
+                  disabled={totalPoints - (currentWinningPoints + 50) < 0}
                   onClick={() => {
                     setBidPoints(
-                      currentBid + 50,
+                      currentWinningPoints + 50,
                       race.name.toLowerCase() as Race,
                     );
-                    setCurrentBid((current) => current + 50);
+                    setCurrentBid(currentWinningPoints + 50);
                   }}
                 >
-                  {totalPoints - (currentBid + 50) < 0 ? (
+                  {totalPoints - (currentWinningPoints + 50) < 0 ? (
                     "Not enough points"
                   ) : (
-                    <>
-                      <MdAdd /> <Text as={"span"}>{"50"}</Text>
-                    </>
+                    <>{`${currentWinningPoints + 50}`}</>
                   )}
                 </Button>
                 <Button
                   variant={"surface"}
                   size={"xs"}
-                  fontSize={15}
+                  fontSize={18}
                   onClick={() => setOpenCustomBidModal(true)}
                 >
-                  <Text as={"span"}>{"Custom amount"}</Text>
+                  {"Custom amount"}
                 </Button>
               </Flex>
             </Card.Body>
