@@ -102,17 +102,16 @@ function AuctionCard({
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
         </Text>
-        {currentWinningPoints === 0 && (
           <Button
             variant={"surface"}
             onClick={() => randomizeAndGroupRaces()}
             marginInline={"auto"}
+            disabled={currentWinningPoints > 0}
             fontSize={16}
             marginBottom={5}
           >
             {"Randomize order"}
           </Button>
-        )}
         <Flex
           gap={5}
           justifyContent={"center"}
