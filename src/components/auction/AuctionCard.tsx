@@ -4,6 +4,7 @@ import { Field } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
 import { type Race, type RaceColor } from "@/types";
 import RaceAuction from "./RaceAuction";
+import { useEffect, useState } from "react";
 
 function AuctionCard({
   races,
@@ -12,6 +13,7 @@ function AuctionCard({
   nextAuction,
   setCurrentItem,
   totalPoints,
+  bids,
   setBidPoints,
 }: {
   races: RaceColor[];
@@ -20,8 +22,22 @@ function AuctionCard({
   nextAuction: () => void;
   setCurrentItem: (item: string) => void;
   totalPoints: { tauren: number; orc: number; undead: number; troll: number };
+  bids: { tauren: number; orc: number; undead: number; troll: number };
   setBidPoints: (bid: number, race: Race) => void;
 }) {
+  const [currentWinningRace, setCurrentWinningRace] = useState("");
+  const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
+
+  useEffect(() => {
+    const [currentWinningRace, currentWinningPoints] = Object.entries(
+      bids,
+    ).reduce((max, current) => {
+      return current[1] > max[1] ? current : max;
+    });
+    setCurrentWinningRace(currentWinningRace);
+    setCurrentWinningPoints(currentWinningPoints);
+  }, [bids]);
+
   return (
     <Card.Root
       width={"90%"}
@@ -50,6 +66,17 @@ function AuctionCard({
         </Box>
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
+        </Text>
+        <Text
+          color={"#cecece"}
+          w={"100%"}
+          textAlign={"center"}
+          marginBottom={2}
+          fontSize={25}
+        >
+          {currentWinningPoints > 0
+            ? `Current winner: ${currentWinningRace.charAt(0).toUpperCase() + String(currentWinningRace).slice(1)} with ${currentWinningPoints}`
+            : ""}
         </Text>
         <Flex
           gap={5}

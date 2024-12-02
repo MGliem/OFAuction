@@ -219,6 +219,7 @@ function App() {
                 setCurrentItem={setCurrentItem}
                 nextAuction={nextAuction}
                 totalPoints={points}
+                bids={bids}
                 setBidPoints={setBidPoints}
               />
             </motion.div>
