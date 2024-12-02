@@ -57,6 +57,8 @@ function AuctionCard({
         {currentWinningPoints > 0 && (
           <Flex
             w={"100%"}
+            flexDirection={{ base: "column", sm: "row" }}
+            alignItems={"center"}
             justifyContent={"center"}
             color={"#cecece"}
             fontSize={25}
@@ -72,7 +74,9 @@ function AuctionCard({
                   String(currentWinningRace).slice(1)}
               </Text>
             </motion.div>
-            <Text as={"span"} whiteSpace={"pre-wrap"}>{" with "}</Text>
+            <Text as={"span"} whiteSpace={"pre-wrap"}>
+              {" with "}
+            </Text>
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
