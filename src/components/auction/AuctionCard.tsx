@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { type Race, type RaceColor } from "@/types";
 import RaceAuction from "./RaceAuction";
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 
 function AuctionCard({
   races,
@@ -53,30 +54,47 @@ function AuctionCard({
           color={"#cecece"}
           fontSize={"xl"}
         >{`Auction #${auctionNumber}`}</Card.Title>
+        {currentWinningPoints > 0 && (
+          <Flex
+            w={"100%"}
+            justifyContent={"center"}
+            color={"#cecece"}
+            fontSize={25}
+          >
+            <Text whiteSpace={"pre-wrap"}>{"Current winner: "}</Text>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              key={currentWinningRace}
+            >
+              <Text as={"span"}>
+                {currentWinningRace.charAt(0).toUpperCase() +
+                  String(currentWinningRace).slice(1)}
+              </Text>
+            </motion.div>
+            <Text as={"span"} whiteSpace={"pre-wrap"}>{" with "}</Text>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              key={currentWinningPoints}
+            >
+              <Text as={"span"}>{currentWinningPoints}</Text>
+            </motion.div>
+          </Flex>
+        )}
         <Box margin={8}>
           <Field label="Item(s):" color={"#cecece"} fontSize={"md"}>
             <TextInput
               width={{ base: "100%", md: "420px" }}
               value={currentItem}
               onChange={(e) => setCurrentItem(e.target.value)}
-              placeholder={"Example: slot 1,2,3..."}
+              placeholder={"Anything you want. Not required."}
               _placeholder={{ color: "#a3a3a3" }}
             />
           </Field>
         </Box>
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
-        </Text>
-        <Text
-          color={"#cecece"}
-          w={"100%"}
-          textAlign={"center"}
-          marginBottom={2}
-          fontSize={25}
-        >
-          {currentWinningPoints > 0
-            ? `Current winner: ${currentWinningRace.charAt(0).toUpperCase() + String(currentWinningRace).slice(1)} with ${currentWinningPoints}`
-            : ""}
         </Text>
         <Flex
           gap={5}
@@ -101,6 +119,7 @@ function AuctionCard({
               }
               animeDelay={0.2}
               setBidPoints={setBidPoints}
+              currentWinningPoints={currentWinningPoints}
             />
             <RaceAuction
               race={races[1]}
@@ -112,6 +131,7 @@ function AuctionCard({
               }
               animeDelay={0.3}
               setBidPoints={setBidPoints}
+              currentWinningPoints={currentWinningPoints}
             />
           </Flex>
           <Flex
@@ -131,6 +151,7 @@ function AuctionCard({
               }
               animeDelay={0.4}
               setBidPoints={setBidPoints}
+              currentWinningPoints={currentWinningPoints}
             />
             <RaceAuction
               race={races[3]}
@@ -142,11 +163,16 @@ function AuctionCard({
               }
               animeDelay={0.5}
               setBidPoints={setBidPoints}
+              currentWinningPoints={currentWinningPoints}
             />
           </Flex>
         </Flex>
         <Box marginInline={"auto"} marginTop={7}>
-          <Button variant={"surface"} onClick={() => nextAuction()}>
+          <Button
+            variant={"surface"}
+            onClick={() => nextAuction()}
+            fontSize={18}
+          >
             {"Done/New Auction"}
           </Button>
         </Box>
