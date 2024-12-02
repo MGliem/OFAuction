@@ -10,14 +10,12 @@ function RaceAuction({
   race,
   auctionNumber,
   totalPoints,
-  animeDelay,
   setBidPoints,
   currentWinningPoints,
 }: {
   race: RaceColor;
   auctionNumber: number;
   totalPoints: number;
-  animeDelay: number;
   setBidPoints: (bid: number, race: Race) => void;
   currentWinningPoints: number;
 }) {
@@ -50,11 +48,6 @@ function RaceAuction({
   return (
     <>
       <Box width={{ base: "100%", lg: "60%", "2xl": "320px" }}>
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: animeDelay }}
-        >
           <Card.Root
             backgroundColor={"#181818"}
             borderColor={race.color}
@@ -131,7 +124,6 @@ function RaceAuction({
               </Flex>
             </Card.Body>
           </Card.Root>
-        </motion.div>
       </Box>
       <OverBidModal
         open={openForceBidModal}
