@@ -6,8 +6,8 @@ import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { type AuctionHistory, type RaceColor, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
 import HistoryCard from "./components/history/HistoryCard";
-import { motion } from "motion/react";
 import shuffleArray from "./helpers/shuffleArray";
+import { motion } from "motion/react";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -159,14 +159,22 @@ function App() {
               w={{ base: "100%", lg: "80%", "2xl": "fit-content" }}
               gap={5}
             >
-              {groupedRace.map((race, raceIndex) => (
-                <PointsCard
-                  key={raceIndex}
-                  race={race}
-                  showEdit={showEdit}
-                  points={points[race.name.toLowerCase() as Race]}
-                  setPoints={setRacePoints}
-                />
+              {groupedRace.map((race, j) => (
+                <Box key={j} width={{ base: "100%", lg: "60%", "2xl": "320px" }}>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <PointsCard
+                      key={j}
+                      race={race}
+                      showEdit={showEdit}
+                      points={points[race.name.toLowerCase() as Race]}
+                      setPoints={setRacePoints}
+                    />
+                  </motion.div>
+                </Box>
               ))}
             </Flex>
           ))}
