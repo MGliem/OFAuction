@@ -7,6 +7,7 @@ import { type AuctionHistory, type RaceColor, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
 import HistoryCard from "./components/history/HistoryCard";
 import { motion } from "motion/react";
+import shuffleArray from "./helpers/shuffleArray";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -29,6 +30,10 @@ const troll: RaceColor = {
 };
 
 const races = [tauren, orc, undead, troll];
+const staticGroupedRaces = [
+  [tauren, orc],
+  [undead, troll],
+];
 
 function App() {
   const [points, setPoints] = useState({
@@ -48,6 +53,18 @@ function App() {
   const [auctionNumber, setAuctionNumber] = useState(1);
   const [currentItem, setCurrentItem] = useState("");
   const [auctionHistory, setAuctionHistory] = useState<AuctionHistory[]>([]);
+  const [randomizedGroupedRaces, setRandomizedGroupedRaces] =
+    useState<RaceColor[][]>(staticGroupedRaces);
+
+  const randomizeAndGroupRaces = () => {
+    const randomizeRaces = shuffleArray(races);
+
+    const groupedRaces = [];
+    for (let i = 0; i < randomizeRaces.length; i += 2) {
+      groupedRaces.push(randomizeRaces.slice(i, i + 2));
+    }
+    setRandomizedGroupedRaces(groupedRaces);
+  };
 
   const savePoints = () => {
     setShowEdit(!showEdit);
@@ -98,14 +115,14 @@ function App() {
       newPoints[currentWinningRace] -= currentWinningPoints;
     }
 
+    setPoints(newPoints);
+
     setBids({
       tauren: 0,
       orc: 0,
       undead: 0,
       troll: 0,
     });
-
-    setPoints(newPoints);
   };
 
   return (
@@ -133,75 +150,41 @@ function App() {
           flexDirection={{ base: "column", lg: "row" }}
           gap={5}
         >
-          <Flex
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"end"}
-            alignItems={"center"}
-            w={"100%"}
-            gap={5}
-          >
-            <PointsCard
-              race={tauren}
-              showEdit={showEdit}
-              points={points.tauren}
-              setPoints={setRacePoints}
-              animeDelay={0}
-            />
-            <PointsCard
-              race={orc}
-              showEdit={showEdit}
-              points={points.orc}
-              setPoints={setRacePoints}
-              animeDelay={0.1}
-            />
-          </Flex>
-          <Flex
-            flexDirection={{ base: "column", md: "row" }}
-            justifyContent={"start"}
-            alignItems={"center"}
-            w={"100%"}
-            gap={5}
-          >
-            <PointsCard
-              race={undead}
-              showEdit={showEdit}
-              points={points.undead}
-              setPoints={setRacePoints}
-              animeDelay={0.2}
-            />
-            <PointsCard
-              race={troll}
-              showEdit={showEdit}
-              points={points.troll}
-              setPoints={setRacePoints}
-              animeDelay={0.3}
-            />
-          </Flex>
+          {staticGroupedRaces.map((groupedRace, i) => (
+            <Flex
+              key={i}
+              flexDirection={{ base: "column", md: "row" }}
+              justifyContent={"center"}
+              alignItems={"center"}
+              w={{ base: "100%", lg: "80%", "2xl": "fit-content" }}
+              gap={5}
+            >
+              {groupedRace.map((race, raceIndex) => (
+                <PointsCard
+                  key={raceIndex}
+                  race={race}
+                  showEdit={showEdit}
+                  points={points[race.name.toLowerCase() as Race]}
+                  setPoints={setRacePoints}
+                />
+              ))}
+            </Flex>
+          ))}
         </Flex>
         <Box textAlign={"center"} marginTop={30}>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            <Button
-              size={"lg"}
-              variant={"surface"}
-              onClick={() => savePoints()}
-            >
-              {showEdit ? (
-                <>
-                  <MdOutlineSave />
-                  {"Save"}
-                </>
-              ) : (
-                <>
-                  <MdOutlineModeEdit />
-                  {"Edit"}
-                </>
-              )}
-            </Button>
-          </motion.div>
+          <Button size={"lg"} variant={"surface"} onClick={() => savePoints()}>
+            {showEdit ? (
+              <>
+                <MdOutlineSave />
+                {"Save"}
+              </>
+            ) : (
+              <>
+                <MdOutlineModeEdit />
+                {"Edit"}
+              </>
+            )}
+          </Button>
         </Box>
       </Box>
       {isFirstTimePointsSet ? (
@@ -213,7 +196,6 @@ function App() {
               transition={{ duration: 0.3 }}
             >
               <AuctionCard
-                races={races}
                 auctionNumber={auctionNumber}
                 currentItem={currentItem}
                 setCurrentItem={setCurrentItem}
@@ -221,6 +203,8 @@ function App() {
                 totalPoints={points}
                 bids={bids}
                 setBidPoints={setBidPoints}
+                groupedRaces={randomizedGroupedRaces}
+                randomizeAndGroupRaces={randomizeAndGroupRaces}
               />
             </motion.div>
           </Box>

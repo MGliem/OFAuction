@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
 function AuctionCard({
-  races,
   auctionNumber,
   currentItem,
   nextAuction,
@@ -16,8 +15,9 @@ function AuctionCard({
   totalPoints,
   bids,
   setBidPoints,
+  groupedRaces,
+  randomizeAndGroupRaces,
 }: {
-  races: RaceColor[];
   auctionNumber: number;
   currentItem: string;
   nextAuction: () => void;
@@ -25,6 +25,8 @@ function AuctionCard({
   totalPoints: { tauren: number; orc: number; undead: number; troll: number };
   bids: { tauren: number; orc: number; undead: number; troll: number };
   setBidPoints: (bid: number, race: Race) => void;
+  groupedRaces: RaceColor[][];
+  randomizeAndGroupRaces: () => void;
 }) {
   const [currentWinningRace, setCurrentWinningRace] = useState("");
   const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
@@ -100,76 +102,46 @@ function AuctionCard({
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
         </Text>
+        <Button
+          variant={"surface"}
+          onClick={() => randomizeAndGroupRaces()}
+          marginInline={"auto"}
+          fontSize={16}
+          marginBottom={5}
+        >
+          {"Randomize order"}
+        </Button>
         <Flex
           gap={5}
           justifyContent={"center"}
           alignItems={"center"}
           flexDirection={{ base: "column", lg: "row" }}
         >
-          <Flex
-            gap={5}
-            flexDirection={{ base: "column", md: "row" }}
-            w={"100%"}
-            justifyContent={"end"}
-            alignItems={"center"}
-          >
-            <RaceAuction
-              race={races[0]}
-              auctionNumber={auctionNumber}
-              totalPoints={
-                totalPoints[
-                  races[0].name.toLowerCase() as keyof typeof totalPoints
-                ]
-              }
-              animeDelay={0.2}
-              setBidPoints={setBidPoints}
-              currentWinningPoints={currentWinningPoints}
-            />
-            <RaceAuction
-              race={races[1]}
-              auctionNumber={auctionNumber}
-              totalPoints={
-                totalPoints[
-                  races[1].name.toLowerCase() as keyof typeof totalPoints
-                ]
-              }
-              animeDelay={0.3}
-              setBidPoints={setBidPoints}
-              currentWinningPoints={currentWinningPoints}
-            />
-          </Flex>
-          <Flex
-            gap={5}
-            flexDirection={{ base: "column", md: "row" }}
-            w={"100%"}
-            justifyContent={"start"}
-            alignItems={"center"}
-          >
-            <RaceAuction
-              race={races[2]}
-              auctionNumber={auctionNumber}
-              totalPoints={
-                totalPoints[
-                  races[2].name.toLowerCase() as keyof typeof totalPoints
-                ]
-              }
-              animeDelay={0.4}
-              setBidPoints={setBidPoints}
-              currentWinningPoints={currentWinningPoints}
-            />
-            <RaceAuction
-              race={races[3]}
-              auctionNumber={auctionNumber}
-              totalPoints={
-                totalPoints[
-                  races[3].name.toLowerCase() as keyof typeof totalPoints
-                ]
-              }
-              animeDelay={0.5}
-              setBidPoints={setBidPoints}
-              currentWinningPoints={currentWinningPoints}
-            />
-          </Flex>
+          {groupedRaces.map((groupedRace, i) => (
+            <Flex
+              key={i}
+              gap={5}
+              flexDirection={{ base: "column", md: "row" }}
+              w={{ base: "100%", lg: "80%", "2xl": "fit-content" }}
+              justifyContent={"end"}
+              alignItems={"center"}
+            >
+              {groupedRace.map((race, j) => (
+                <RaceAuction
+                  key={j}
+                  race={race}
+                  auctionNumber={auctionNumber}
+                  totalPoints={
+                    totalPoints[
+                      race.name.toLowerCase() as keyof typeof totalPoints
+                    ]
+                  }
+                  setBidPoints={setBidPoints}
+                  currentWinningPoints={currentWinningPoints}
+                />
+              ))}
+            </Flex>
+          ))}
         </Flex>
         <Box marginInline={"auto"} marginTop={7}>
           <Button
