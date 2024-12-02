@@ -55,9 +55,10 @@ function AuctionCard({
         <Card.Title
           color={"#cecece"}
           fontSize={"xl"}
+          marginBottom={currentWinningPoints > 0 ? 0 : "37.5px"}
         >{`Auction #${auctionNumber}`}</Card.Title>
-        {currentWinningPoints > 0 && (
           <Flex
+            display={currentWinningPoints > 0 ? "flex" : "none"}
             w={"100%"}
             flexDirection={{ base: "column", sm: "row" }}
             alignItems={"center"}
@@ -87,7 +88,6 @@ function AuctionCard({
               <Text as={"span"}>{currentWinningPoints}</Text>
             </motion.div>
           </Flex>
-        )}
         <Box margin={8}>
           <Field label="Item(s):" color={"#cecece"} fontSize={"md"}>
             <TextInput
@@ -102,17 +102,16 @@ function AuctionCard({
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
         </Text>
-        {currentWinningPoints === 0 && (
           <Button
             variant={"surface"}
             onClick={() => randomizeAndGroupRaces()}
             marginInline={"auto"}
+            disabled={currentWinningPoints > 0}
             fontSize={16}
             marginBottom={5}
           >
             {"Randomize order"}
           </Button>
-        )}
         <Flex
           gap={5}
           justifyContent={"center"}
