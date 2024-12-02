@@ -80,7 +80,7 @@ function App() {
       {
         auction: auctionNumber,
         item: currentItem,
-        winner: currentWinningRace,
+        winner: currentWinningPoints > 0 ? currentWinningRace : "Nobody",
         points: currentWinningPoints,
       },
     ]);
