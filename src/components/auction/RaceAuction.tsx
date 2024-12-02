@@ -96,7 +96,7 @@ function RaceAuction({
                   variant={"surface"}
                   colorPalette={"accent"}
                   size={"xs"}
-                  fontSize={18}
+                  fontSize={16}
                   marginBlock={4}
                   disabled={totalPoints - (currentWinningPoints + 50) < 0}
                   onClick={() => {
@@ -116,7 +116,7 @@ function RaceAuction({
                 <Button
                   variant={"surface"}
                   size={"xs"}
-                  fontSize={18}
+                  fontSize={16}
                   onClick={() => setOpenCustomBidModal(true)}
                 >
                   {"Custom amount"}
