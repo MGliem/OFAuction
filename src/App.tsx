@@ -198,31 +198,19 @@ function App() {
       {isFirstTimePointsSet ? (
         <>
           <Box>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <AuctionCard
-                auctionNumber={auctionNumber}
-                currentItem={currentItem}
-                setCurrentItem={setCurrentItem}
-                nextAuction={nextAuction}
-                totalPoints={points}
-                bids={bids}
-                setBidPoints={setBidPoints}
-                groupedRaces={randomizedGroupedRaces}
-                randomizeAndGroupRaces={randomizeAndGroupRaces}
-              />
-            </motion.div>
+            <AuctionCard
+              auctionNumber={auctionNumber}
+              currentItem={currentItem}
+              setCurrentItem={setCurrentItem}
+              nextAuction={nextAuction}
+              totalPoints={points}
+              bids={bids}
+              setBidPoints={setBidPoints}
+              groupedRaces={randomizedGroupedRaces}
+              randomizeAndGroupRaces={randomizeAndGroupRaces}
+            />
           </Box>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
-          >
-            <HistoryCard auctionHistory={auctionHistory} />
-          </motion.div>
+          <HistoryCard auctionHistory={auctionHistory} />
         </>
       ) : (
         ""

@@ -57,37 +57,37 @@ function AuctionCard({
           fontSize={"xl"}
           marginBottom={currentWinningPoints > 0 ? 0 : "37.5px"}
         >{`Auction #${auctionNumber}`}</Card.Title>
-          <Flex
-            display={currentWinningPoints > 0 ? "flex" : "none"}
-            w={"100%"}
-            flexDirection={{ base: "column", sm: "row" }}
-            alignItems={"center"}
-            justifyContent={"center"}
-            color={"#cecece"}
-            fontSize={25}
+        <Flex
+          display={currentWinningPoints > 0 ? "flex" : "none"}
+          w={"100%"}
+          flexDirection={{ base: "column", sm: "row" }}
+          alignItems={"center"}
+          justifyContent={"center"}
+          color={"#cecece"}
+          fontSize={25}
+        >
+          <Text whiteSpace={"pre-wrap"}>{"Current winner: "}</Text>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            key={currentWinningRace}
           >
-            <Text whiteSpace={"pre-wrap"}>{"Current winner: "}</Text>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              key={currentWinningRace}
-            >
-              <Text as={"span"}>
-                {currentWinningRace.charAt(0).toUpperCase() +
-                  String(currentWinningRace).slice(1)}
-              </Text>
-            </motion.div>
-            <Text as={"span"} whiteSpace={"pre-wrap"}>
-              {" with "}
+            <Text as={"span"}>
+              {currentWinningRace.charAt(0).toUpperCase() +
+                String(currentWinningRace).slice(1)}
             </Text>
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              key={currentWinningPoints}
-            >
-              <Text as={"span"}>{currentWinningPoints}</Text>
-            </motion.div>
-          </Flex>
+          </motion.div>
+          <Text as={"span"} whiteSpace={"pre-wrap"}>
+            {" with "}
+          </Text>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            key={currentWinningPoints}
+          >
+            <Text as={"span"}>{currentWinningPoints}</Text>
+          </motion.div>
+        </Flex>
         <Box margin={8}>
           <Field label="Item(s):" color={"#cecece"} fontSize={"md"}>
             <TextInput
@@ -102,16 +102,16 @@ function AuctionCard({
         <Text color={"#cecece"} fontSize={18} fontWeight={600} marginBottom={3}>
           {"Bids: "}
         </Text>
-          <Button
-            variant={"surface"}
-            onClick={() => randomizeAndGroupRaces()}
-            marginInline={"auto"}
-            disabled={currentWinningPoints > 0}
-            fontSize={16}
-            marginBottom={5}
-          >
-            {"Randomize order"}
-          </Button>
+        <Button
+          variant={"surface"}
+          onClick={() => randomizeAndGroupRaces()}
+          marginInline={"auto"}
+          disabled={currentWinningPoints > 0}
+          fontSize={16}
+          marginBottom={5}
+        >
+          {"Randomize order"}
+        </Button>
         <Flex
           gap={5}
           justifyContent={"center"}
@@ -128,18 +128,30 @@ function AuctionCard({
               alignItems={"center"}
             >
               {groupedRace.map((race, j) => (
-                <RaceAuction
+                <Box
                   key={j}
-                  race={race}
-                  auctionNumber={auctionNumber}
-                  totalPoints={
-                    totalPoints[
-                      race.name.toLowerCase() as keyof typeof totalPoints
-                    ]
-                  }
-                  setBidPoints={setBidPoints}
-                  currentWinningPoints={currentWinningPoints}
-                />
+                  width={{ base: "100%", lg: "60%", "2xl": "320px" }}
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.1 }}
+                    key={race.name}
+                  >
+                    <RaceAuction
+                      key={j}
+                      race={race}
+                      auctionNumber={auctionNumber}
+                      totalPoints={
+                        totalPoints[
+                          race.name.toLowerCase() as keyof typeof totalPoints
+                        ]
+                      }
+                      setBidPoints={setBidPoints}
+                      currentWinningPoints={currentWinningPoints}
+                    />
+                  </motion.div>
+                </Box>
               ))}
             </Flex>
           ))}
