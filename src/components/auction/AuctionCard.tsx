@@ -155,7 +155,6 @@ function AuctionCard({
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ delay: 0.2 }}
                       key={race.name}
                     >
                       <RaceAuction

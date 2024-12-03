@@ -25,6 +25,13 @@ const themeConfig = extendTheme({
       },
     },
   },
+  components: {
+    Button: {
+      baseStyle: {
+        color: "#000",
+      },
+    },
+  },
 });
 
 createRoot(document.getElementById("root")!).render(
