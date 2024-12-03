@@ -13,6 +13,7 @@ import { type Race, type RaceColor } from "@/types";
 import RaceAuction from "./RaceAuction";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { ArrowForwardIcon, RepeatIcon } from "@chakra-ui/icons";
 
 function AuctionCard({
   auctionNumber,
@@ -123,6 +124,7 @@ function AuctionCard({
               transform: "scale(0.98)",
               borderColor: "#848484",
             }}
+            leftIcon={<RepeatIcon />}
             onClick={() => randomizeAndGroupRaces()}
             marginInline={"auto"}
             disabled={currentWinningPoints > 0}
@@ -184,6 +186,7 @@ function AuctionCard({
                 transform: "scale(0.98)",
                 borderColor: "#848484",
               }}
+              leftIcon={<ArrowForwardIcon />}
               onClick={() => nextAuction()}
               fontSize={16}
             >

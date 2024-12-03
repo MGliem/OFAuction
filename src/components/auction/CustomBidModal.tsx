@@ -1,5 +1,6 @@
 import TextInput from "@/components/ui/TextInput";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Button,
   Modal,
@@ -47,6 +48,7 @@ function CustomBidModal({
           borderColor: "#848484",
         }}
         fontSize={15}
+        leftIcon={<AddIcon />}
         onClick={onOpen}
       >
         {"Custom amount"}

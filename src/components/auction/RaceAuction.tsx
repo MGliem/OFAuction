@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import OverBidModal from "./OverBidModal";
 import CustomBidModal from "./CustomBidModal";
 import { motion } from "motion/react";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 function RaceAuction({
   race,
@@ -27,11 +28,13 @@ function RaceAuction({
 }) {
   const [currentBid, setCurrentBid] = useState(0);
   const [customBidInput, setCustomBidInput] = useState("");
+  const [isPass, setIsPass] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     setCurrentBid(0);
+    setIsPass(false);
   }, [auctionNumber]);
 
   const handleCustomCloseModal = () => {
@@ -54,6 +57,7 @@ function RaceAuction({
   return (
     <>
       <Card
+        display={isPass ? "none" : "flex"}
         backgroundColor={"#181818"}
         borderColor={race.color}
         borderWidth={"2px"}
@@ -106,6 +110,7 @@ function RaceAuction({
                 transform: "scale(0.98)",
                 borderColor: "#848484",
               }}
+              leftIcon={<CheckIcon />}
               fontSize={15}
               marginBlock={4}
               disabled={totalPoints - (currentWinningPoints + 50) < 0}
@@ -128,6 +133,22 @@ function RaceAuction({
               setCustomBidInput={setCustomBidInput}
               handleCloseModal={handleCustomCloseModal}
             />
+            <Button
+              color={"#000"}
+              bg={"#cecece"}
+              _hover={{ bg: "#eaeaea" }}
+              _active={{
+                bg: "#dddfe2",
+                transform: "scale(0.98)",
+                borderColor: "#848484",
+              }}
+              fontSize={15}
+              marginBlock={4}
+              leftIcon={<CloseIcon />}
+              onClick={() => setIsPass(true)}
+            >
+              {"Pass"}
+            </Button>
           </Flex>
         </CardBody>
       </Card>
