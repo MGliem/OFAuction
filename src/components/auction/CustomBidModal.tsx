@@ -48,6 +48,7 @@ function CustomBidModal({
           borderColor: "#848484",
         }}
         fontSize={15}
+        style={{ textWrap: "wrap" }}
         leftIcon={<AddIcon />}
         onClick={onOpen}
       >
