@@ -18,16 +18,18 @@ function RaceAuction({
   auctionNumber,
   totalPoints,
   setBidPoints,
+  currentWinningRace,
   currentWinningPoints,
 }: {
   race: RaceColor;
   auctionNumber: number;
   totalPoints: number;
   setBidPoints: (bid: number, race: Race) => void;
+  currentWinningRace: string;
   currentWinningPoints: number;
 }) {
-  const [currentBid, setCurrentBid] = useState(0);
   const [customBidInput, setCustomBidInput] = useState("");
+  const [currentBid, setCurrentBid] = useState(0);
   const [isPass, setIsPass] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -52,6 +54,10 @@ function RaceAuction({
     setCurrentBid(+customBidInput);
     setBidPoints(+customBidInput, race.name.toLowerCase() as Race);
     setCustomBidInput("");
+  };
+
+  const incrementByFiftyMultiple = () => {
+    return Math.ceil(currentWinningPoints / 50) * 50 + 50;
   };
 
   return (
@@ -113,19 +119,20 @@ function RaceAuction({
               leftIcon={<CheckIcon />}
               fontSize={15}
               marginBlock={4}
-              disabled={totalPoints - (currentWinningPoints + 50) < 0}
+              disabled={totalPoints - incrementByFiftyMultiple() < 0}
+              style={{ textWrap: "wrap" }}
               onClick={() => {
                 setBidPoints(
-                  currentWinningPoints + 50,
+                  incrementByFiftyMultiple(),
                   race.name.toLowerCase() as Race,
                 );
-                setCurrentBid(currentWinningPoints + 50);
+                setCurrentBid(incrementByFiftyMultiple());
               }}
             >
-              {totalPoints - (currentWinningPoints + 50) < 0 ? (
+              {totalPoints - incrementByFiftyMultiple() < 0 ? (
                 "Not enough points"
               ) : (
-                <>{`${currentWinningPoints + 50}`}</>
+                <>{`${incrementByFiftyMultiple()}`}</>
               )}
             </Button>
             <CustomBidModal

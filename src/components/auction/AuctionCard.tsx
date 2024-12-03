@@ -168,6 +168,7 @@ function AuctionCard({
                           ]
                         }
                         setBidPoints={setBidPoints}
+                        currentWinningRace={currentWinningRace}
                         currentWinningPoints={currentWinningPoints}
                       />
                     </motion.div>
