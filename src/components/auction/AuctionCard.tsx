@@ -75,16 +75,13 @@ function AuctionCard({
             color={"#cecece"}
             fontSize={25}
           >
+            <Text whiteSpace={"pre-wrap"}>{"Current winner: "}</Text>
             <Text
               as={motion.div}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               key={currentWinningRace}
-              whiteSpace={"pre-wrap"}
             >
-              {"Current winner: "}
-            </Text>
-            <Text as={"span"}>
               {currentWinningRace.charAt(0).toUpperCase() +
                 String(currentWinningRace).slice(1)}
             </Text>
