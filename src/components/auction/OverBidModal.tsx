@@ -1,66 +1,76 @@
 import {
-  DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogBody,
-  DialogFooter,
-  DialogActionTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Text } from "@chakra-ui/react";
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+} from "@chakra-ui/react";
 
 function OverBidModal({
-  open,
-  setOpen,
+  isOpen,
+  onClose,
   race,
   totalPoints,
   customBidInput,
+  setCustomBidInput,
   handleForceCloseModal,
 }: {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  isOpen: boolean;
+  onClose: () => void;
   race: string;
   totalPoints: number;
   customBidInput: string;
+  setCustomBidInput: (value: string) => void;
   handleForceCloseModal: () => void;
 }) {
   return (
-    <DialogRoot
-      lazyMount
-      open={open}
-      onOpenChange={(e) => {
-        setOpen(e.open);
-      }}
-      placement={"center"}
-      closeOnInteractOutside={false}
-      closeOnEscape={false}
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      onEsc={() => setCustomBidInput("")}
+      onOverlayClick={() => setCustomBidInput("")}
+      isCentered
+      autoFocus={false}
     >
-      <DialogContent bg={"#171717"}>
-        <DialogHeader>
-          <DialogTitle fontSize={"xl"}>Not enough points</DialogTitle>
-        </DialogHeader>
-        <DialogBody fontSize={"lg"}>
+      <ModalOverlay />
+      <ModalContent bg={"#171717"}>
+        <ModalHeader fontSize={"xl"}>Not enough points</ModalHeader>
+        <ModalBody fontSize={"lg"}>
           <Text>{`${race} has ${totalPoints} points left.`}</Text>
           <Text>{`They want to bid ${customBidInput} points.`}</Text>
-        </DialogBody>
-        <DialogFooter>
-          <DialogActionTrigger asChild>
-            <Button variant="surface">Cancel</Button>
-          </DialogActionTrigger>
+        </ModalBody>
+        <ModalFooter>
           <Button
-            variant={"solid"}
-            colorPalette={"cyan"}
+            bg={"#cecece"}
+            _hover={{ bg: "#eaeaea" }}
+            _active={{
+              bg: "#dddfe2",
+              transform: "scale(0.98)",
+              borderColor: "#848484",
+            }}
+            marginRight={2}
+            onClick={() => {
+              setCustomBidInput("");
+              onClose();
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            colorScheme={"orange"}
             onClick={() => {
               handleForceCloseModal();
-              setOpen(false);
+              onClose();
             }}
           >
             {"Force bid"}
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </DialogRoot>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 }
 

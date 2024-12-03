@@ -1,22 +1,35 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ChakraProvider, createSystem, defineConfig, defaultConfig } from "@chakra-ui/react"
+import {
+  ChakraProvider,
+  extendTheme,
+  type ThemeConfig,
+} from "@chakra-ui/react";
 import App from "./App.tsx";
 
-const themeConfig = defineConfig({
-  globalCss: {
-    "html, body": {
-      background: "#262626",
-      color: "#cecece"
-    }
-  }
-})
+const config: ThemeConfig = {
+  initialColorMode: "dark",
+  useSystemColorMode: false,
+};
 
-const system = createSystem(defaultConfig, themeConfig)
+const themeConfig = extendTheme({
+  config,
+  styles: {
+    global: {
+      body: {
+        bg: "#262626",
+        color: "#cecece",
+      },
+      html: {
+        bg: "#262626",
+      },
+    },
+  },
+});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ChakraProvider value={system}>
+    <ChakraProvider theme={themeConfig}>
       <App />
     </ChakraProvider>
   </StrictMode>,

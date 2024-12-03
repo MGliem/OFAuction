@@ -1,7 +1,6 @@
-import { Field } from "@/components/ui/field";
 import TextInput from "../ui/TextInput";
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel } from "@chakra-ui/react";
 import isStringNumber from "@/helpers/isStringNumber";
 
 function EditPoints({
@@ -27,8 +26,11 @@ function EditPoints({
   };
 
   return (
-    <Box marginBlock={15} width={"80%"} marginInline={"auto"}>
-      <Field label={"Points: "} color={"#cecece"} fontSize={"md"}>
+    <Box marginBlock={"auto"} width={"80%"} marginInline={"auto"}>
+      <FormControl>
+        <FormLabel color={"#cecece"} fontSize={"md"}>
+          {"Points:"}
+        </FormLabel>
         <TextInput
           fontSize={16}
           value={input}
@@ -36,7 +38,7 @@ function EditPoints({
             validatePoints(e.target.value)
           }
         />
-      </Field>
+      </FormControl>
     </Box>
   );
 }
