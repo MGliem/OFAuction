@@ -98,6 +98,7 @@ function RaceAuction({
               </Text>
             </Flex>
             <Button
+              color={"#000"}
               bg={"#cecece"}
               _hover={{ bg: "#eaeaea" }}
               _active={{
