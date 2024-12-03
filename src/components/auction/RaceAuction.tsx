@@ -98,9 +98,19 @@ function RaceAuction({
             >
               <Text
                 textAlign={"center"}
-                color={"#cf0eb8"}
+                color={
+                  currentWinningRace === race.name.toLowerCase() &&
+                  currentWinningPoints > 0
+                    ? "#3bbf36"
+                    : "#cf0eb8"
+                }
                 fontWeight={"bold"}
-                fontSize={25}
+                fontSize={
+                  currentWinningRace === race.name.toLowerCase() &&
+                  currentWinningPoints > 0
+                    ? 40
+                    : 25
+                }
                 paddingBottom={"10px"}
                 flex={1}
               >

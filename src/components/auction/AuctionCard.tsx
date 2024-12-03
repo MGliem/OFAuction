@@ -65,39 +65,7 @@ function AuctionCard({
             color={"#cecece"}
             fontSize={"xl"}
             fontWeight={"bold"}
-            marginBottom={currentWinningPoints > 0 ? 0 : "37.5px"}
           >{`Auction #${auctionNumber}`}</Text>
-          <Flex
-            display={currentWinningPoints > 0 ? "flex" : "none"}
-            w={"100%"}
-            flexDirection={{ base: "column", sm: "row" }}
-            alignItems={"center"}
-            justifyContent={"center"}
-            color={"#cecece"}
-            fontSize={25}
-          >
-            <Text whiteSpace={"pre-wrap"}>{"Current winner: "}</Text>
-            <Text
-              as={motion.div}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              key={currentWinningRace}
-            >
-              {currentWinningRace.charAt(0).toUpperCase() +
-                String(currentWinningRace).slice(1)}
-            </Text>
-            <Text as={"span"} whiteSpace={"pre-wrap"}>
-              {" with "}
-            </Text>
-            <Text
-              as={motion.div}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              key={currentWinningPoints}
-            >
-              {currentWinningPoints}
-            </Text>
-          </Flex>
           <Box margin={5}>
             <FormControl>
               <FormLabel color={"#cecece"} fontSize={"md"}>
