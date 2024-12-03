@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import OverBidModal from "./OverBidModal";
 import CustomBidModal from "./CustomBidModal";
 import { motion } from "motion/react";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 function RaceAuction({
   race,
