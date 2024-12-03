@@ -44,6 +44,7 @@ function OverBidModal({
         </ModalBody>
         <ModalFooter>
           <Button
+            color={"#000"}
             bg={"#cecece"}
             _hover={{ bg: "#eaeaea" }}
             _active={{

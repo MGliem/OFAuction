@@ -117,6 +117,7 @@ function AuctionCard({
             {"Bids: "}
           </Text>
           <Button
+            color={"#000"}
             bg={"#cecece"}
             _hover={{ bg: "#eaeaea" }}
             _active={{
@@ -177,6 +178,7 @@ function AuctionCard({
           </Flex>
           <Box marginInline={"auto"} marginTop={7}>
             <Button
+              color={"#000"}
               bg={"#cecece"}
               _hover={{ bg: "#eaeaea" }}
               _active={{
