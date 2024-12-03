@@ -88,16 +88,17 @@ function AuctionCard({
               {currentWinningRace.charAt(0).toUpperCase() +
                 String(currentWinningRace).slice(1)}
             </Text>
+            <Text as={"span"} whiteSpace={"pre-wrap"}>
+              {" with "}
+            </Text>
             <Text
               as={motion.div}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               key={currentWinningPoints}
-              whiteSpace={"pre-wrap"}
             >
-              {" with "}
+              {currentWinningPoints}
             </Text>
-            <Text as={"span"}>{currentWinningPoints}</Text>
           </Flex>
           <Box margin={5}>
             <FormControl>
