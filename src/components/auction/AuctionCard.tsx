@@ -75,27 +75,29 @@ function AuctionCard({
             color={"#cecece"}
             fontSize={25}
           >
-            <Text whiteSpace={"pre-wrap"}>{"Current winner: "}</Text>
-            <motion.div
+            <Text
+              as={motion.div}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               key={currentWinningRace}
+              whiteSpace={"pre-wrap"}
             >
-              <Text as={"span"}>
-                {currentWinningRace.charAt(0).toUpperCase() +
-                  String(currentWinningRace).slice(1)}
-              </Text>
-            </motion.div>
-            <Text as={"span"} whiteSpace={"pre-wrap"}>
-              {" with "}
+              {"Current winner: "}
             </Text>
-            <motion.div
+            <Text as={"span"}>
+              {currentWinningRace.charAt(0).toUpperCase() +
+                String(currentWinningRace).slice(1)}
+            </Text>
+            <Text
+              as={motion.div}
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               key={currentWinningPoints}
+              whiteSpace={"pre-wrap"}
             >
-              <Text as={"span"}>{currentWinningPoints}</Text>
-            </motion.div>
+              {" with "}
+            </Text>
+            <Text as={"span"}>{currentWinningPoints}</Text>
           </Flex>
           <Box margin={5}>
             <FormControl>
@@ -111,11 +113,7 @@ function AuctionCard({
               />
             </FormControl>
           </Box>
-          <Text
-            color={"#cecece"}
-            fontSize={18}
-            marginBlock={3}
-          >
+          <Text color={"#cecece"} fontSize={18} marginBlock={3}>
             {"Bids: "}
           </Text>
           <Button
@@ -157,7 +155,7 @@ function AuctionCard({
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      transition={{ delay: 0.1 }}
+                      transition={{ delay: 0.2 }}
                       key={race.name}
                     >
                       <RaceAuction

@@ -160,7 +160,7 @@ function App() {
               gap={5}
             >
               {groupedRace.map((race, j) => (
-                <Box
+                <Box as={motion.div}
                   key={j}
                   width={{ base: "100%", lg: "60%", "2xl": "320px" }}
                 >

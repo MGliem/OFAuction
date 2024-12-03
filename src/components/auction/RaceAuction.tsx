@@ -79,23 +79,23 @@ function RaceAuction({
             marginInline={"auto"}
             marginBlock={2}
           >
-            <Flex justifyContent={"center"}>
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                key={currentBid}
+            <Flex
+              as={motion.div}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              key={currentBid}
+              justifyContent={"center"}
+            >
+              <Text
+                textAlign={"center"}
+                color={"#cf0eb8"}
+                fontWeight={"bold"}
+                fontSize={25}
+                paddingBottom={"10px"}
+                flex={1}
               >
-                <Text
-                  textAlign={"center"}
-                  color={"#cf0eb8"}
-                  fontWeight={"bold"}
-                  fontSize={25}
-                  paddingBottom={"10px"}
-                  flex={1}
-                >
-                  {currentBid}
-                </Text>
-              </motion.div>
+                {currentBid}
+              </Text>
             </Flex>
             <Button
               bg={"#cecece"}
@@ -105,7 +105,7 @@ function RaceAuction({
                 transform: "scale(0.98)",
                 borderColor: "#848484",
               }}
-              fontSize={16}
+              fontSize={15}
               marginBlock={4}
               disabled={totalPoints - (currentWinningPoints + 50) < 0}
               onClick={() => {

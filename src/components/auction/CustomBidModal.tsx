@@ -45,7 +45,7 @@ function CustomBidModal({
           transform: "scale(0.98)",
           borderColor: "#848484",
         }}
-        fontSize={16}
+        fontSize={15}
         onClick={onOpen}
       >
         {"Custom amount"}
