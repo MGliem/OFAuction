@@ -1,29 +1,27 @@
-import {
-  DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogBody,
-  DialogFooter,
-  DialogActionTrigger,
-} from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import TextInput from "@/components/ui/TextInput";
 import isStringPositiveNumber from "@/helpers/isStringPositiveNumber";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 function CustomBidModal({
-  open,
-  setOpen,
   customBid,
   setCustomBidInput,
   handleCloseModal,
 }: {
-  open: boolean;
-  setOpen: (open: boolean) => void;
   customBid: string;
   setCustomBidInput: (input: string) => void;
   handleCloseModal: () => void;
 }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const validateCustomBid = (bid: string) => {
     if (isStringPositiveNumber(bid)) {
       setCustomBidInput(String(+bid));
@@ -33,58 +31,74 @@ function CustomBidModal({
   const handleCustomKeyUp = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       handleCloseModal();
-      setOpen(false);
+      onClose();
     }
   };
 
   return (
-    <DialogRoot
-      lazyMount
-      open={open}
-      onOpenChange={(e) => {
-        setOpen(e.open);
-      }}
-      placement={"center"}
-      closeOnInteractOutside={false}
-      closeOnEscape={false}
-    >
-      <DialogContent bg={"#171717"}>
-        <DialogHeader>
-          <DialogTitle fontSize={"xl"}>Custom amount</DialogTitle>
-        </DialogHeader>
-        <DialogBody fontSize={"lg"}>
-          <TextInput
-            value={customBid}
-            onChange={(e) => validateCustomBid(e.target.value)}
-            onKeyUp={(e) => handleCustomKeyUp(e)}
-          />
-        </DialogBody>
-        <DialogFooter>
-          <DialogActionTrigger asChild>
+    <>
+      <Button
+        bg={"#cecece"}
+        _hover={{ bg: "#eaeaea" }}
+        _active={{
+          bg: "#dddfe2",
+          transform: "scale(0.98)",
+          borderColor: "#848484",
+        }}
+        fontSize={16}
+        onClick={onOpen}
+      >
+        {"Custom amount"}
+      </Button>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        onEsc={() => setCustomBidInput("")}
+        onOverlayClick={() => setCustomBidInput("")}
+        isCentered
+      >
+        <ModalOverlay />
+        <ModalContent bg={"#171717"}>
+          <ModalHeader fontSize={"xl"}>Custom amount</ModalHeader>
+          <ModalBody fontSize={"lg"}>
+            <TextInput
+              value={customBid}
+              onChange={(e) => validateCustomBid(e.target.value)}
+              onKeyUp={(e) => handleCustomKeyUp(e)}
+            />
+          </ModalBody>
+          <ModalFooter>
             <Button
-              variant={"surface"}
+              bg={"#cecece"}
+              _hover={{ bg: "#eaeaea" }}
+              _active={{
+                bg: "#dddfe2",
+                transform: "scale(0.98)",
+                borderColor: "#848484",
+              }}
+              marginRight={2}
               onClick={() => {
                 setCustomBidInput("");
-                setOpen(false);
+                onClose();
               }}
             >
               Cancel
             </Button>
-          </DialogActionTrigger>
-          <Button
-            variant={"solid"}
-            colorPalette={"cyan"}
-            width={"150px"}
-            onClick={() => {
-              handleCloseModal();
-              setOpen(false);
-            }}
-          >
-            {"Set"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </DialogRoot>
+            <Button
+              colorScheme={"cyan"}
+              width={"150px"}
+              onClick={() => {
+                handleCloseModal();
+                onClose();
+              }}
+            >
+              {"Set"}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 

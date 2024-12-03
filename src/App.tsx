@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PointsCard from "./components/racepoints/PointsCard";
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { type AuctionHistory, type RaceColor, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
@@ -135,6 +134,7 @@ function App() {
         backgroundColor={"#181818"}
         border={"2px solid #cecece"}
         borderRadius={"10px"}
+        boxShadow={"3px 2px 10px -1px #000000"}
       >
         <Text
           color={"#cecece"}
@@ -160,7 +160,10 @@ function App() {
               gap={5}
             >
               {groupedRace.map((race, j) => (
-                <Box key={j} width={{ base: "100%", lg: "60%", "2xl": "320px" }}>
+                <Box
+                  key={j}
+                  width={{ base: "100%", lg: "60%", "2xl": "320px" }}
+                >
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
@@ -180,7 +183,16 @@ function App() {
           ))}
         </Flex>
         <Box textAlign={"center"} marginTop={30}>
-          <Button size={"lg"} variant={"surface"} onClick={() => savePoints()}>
+          <Button
+            bg={"#cecece"}
+            _hover={{ bg: "#eaeaea" }}
+            _active={{
+              bg: "#dddfe2",
+              transform: "scale(0.98)",
+              borderColor: "#848484",
+            }}
+            onClick={() => savePoints()}
+          >
             {showEdit ? (
               <>
                 <MdOutlineSave />

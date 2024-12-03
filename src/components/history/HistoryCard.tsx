@@ -1,5 +1,16 @@
 import { AuctionHistory } from "@/types";
-import { Box, Card, Table } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Table,
+  TableContainer,
+  Tbody,
+  Text,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
@@ -38,105 +49,108 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
   };
 
   return (
-    <Card.Root
+    <Card
       width={"90%"}
       marginInline={"auto"}
+      marginBottom={5}
       backgroundColor={"#181818"}
       border={"2px solid #cecece"}
       boxShadow={"3px 2px 10px -1px #000000"}
     >
-      <Card.Body>
-        <Card.Title color={"#cecece"} fontSize={"xl"}>
+      <CardBody>
+        <Text color={"#cecece"} fontSize={"xl"} fontWeight={"bold"}>
           {"History"}
-        </Card.Title>
-        <Box>
-          <Table.ScrollArea
-            marginTop={10}
-            borderWidth={"1px"}
-            rounded={"md"}
-            height={"280px"}
-            boxShadow={"3px 2px 10px -1px #000000"}
-          >
-            <Table.Root size={"sm"} stickyHeader>
-              <Table.Header>
-                <Table.Row bg={"#2a2a2a"}>
-                  <Table.ColumnHeader
-                    paddingLeft={5}
+        </Text>
+        <TableContainer
+          marginTop={10}
+          borderWidth={"1px"}
+          rounded={"md"}
+          height={"280px"}
+          boxShadow={"3px 2px 10px -1px #000000"}
+          overflowX="scroll"
+          overflowY="scroll"
+        >
+          <Table size={"sm"} variant="simple">
+            <Thead position={"sticky"} top={0} zIndex={"docked"}>
+              <Tr bg={"#2a2a2a"}>
+                <Th
+                  w={"50px"}
+                  paddingLeft={5}
+                  color={"#cecece"}
+                  fontWeight="bold"
+                  fontSize={"lg"}
+                  textTransform={"capitalize"}
+                  onClick={() => sortHistory("auction", true)}
+                  cursor={"pointer"}
+                >
+                  {"Auction"}
+                </Th>
+                <Th
+                  color={"#cecece"}
+                  fontWeight={"bold"}
+                  fontSize={"lg"}
+                  textTransform={"capitalize"}
+                  onClick={() => sortHistory("item", false)}
+                  cursor={"pointer"}
+                >
+                  {"Item(s)"}
+                </Th>
+                <Th
+                  color={"#cecece"}
+                  fontWeight={"bold"}
+                  fontSize={"lg"}
+                  textTransform={"capitalize"}
+                  onClick={() => sortHistory("winner", false)}
+                  cursor={"pointer"}
+                >
+                  {"Winner"}
+                </Th>
+                <Th
+                  textAlign={"end"}
+                  paddingRight={5}
+                  color={"#cecece"}
+                  fontWeight={"bold"}
+                  fontSize={"lg"}
+                  textTransform={"capitalize"}
+                  onClick={() => sortHistory("points", true)}
+                  cursor={"pointer"}
+                >
+                  {"Points"}
+                </Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {sortedHistory.map((item, i) => (
+                <Tr key={i} bg={"#3d3d3d"}>
+                  <Td color={"#cecece"} fontSize={"md"} paddingLeft={8}>
+                    {item.auction}
+                  </Td>
+                  <Td color={"#cecece"} fontSize={"md"} paddingLeft={6}>
+                    {item.item}
+                  </Td>
+                  <Td
                     color={"#cecece"}
-                    fontWeight="bold"
-                    fontSize={"lg"}
-                    onClick={() => sortHistory("auction", true)}
-                    cursor={"pointer"}
+                    fontSize={"md"}
+                    textTransform={"capitalize"}
+                    paddingLeft={6}
                   >
-                    {"Auction"}
-                  </Table.ColumnHeader>
-                  <Table.ColumnHeader
-                    color={"#cecece"}
-                    fontWeight={"bold"}
-                    fontSize={"lg"}
-                    onClick={() => sortHistory("item", false)}
-                    cursor={"pointer"}
-                  >
-                    {"Item(s)"}
-                  </Table.ColumnHeader>
-                  <Table.ColumnHeader
-                    color={"#cecece"}
-                    fontWeight={"bold"}
-                    fontSize={"lg"}
-                    onClick={() => sortHistory("winner", false)}
-                    cursor={"pointer"}
-                  >
-                    {"Winner"}
-                  </Table.ColumnHeader>
-                  <Table.ColumnHeader
+                    {item.winner}
+                  </Td>
+                  <Td
                     textAlign={"end"}
                     paddingRight={5}
                     color={"#cecece"}
-                    fontWeight={"bold"}
-                    fontSize={"lg"}
-                    onClick={() => sortHistory("points", true)}
-                    cursor={"pointer"}
+                    fontSize={"md"}
                   >
-                    {"Points"}
-                  </Table.ColumnHeader>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {sortedHistory.map((item, i) => (
-                  <Table.Row key={i} bg={"#3d3d3d"}>
-                    <Table.Cell
-                      color={"#cecece"}
-                      fontSize={"md"}
-                      paddingLeft={5}
-                    >
-                      {item.auction}
-                    </Table.Cell>
-                    <Table.Cell color={"#cecece"} fontSize={"md"}>
-                      {item.item}
-                    </Table.Cell>
-                    <Table.Cell
-                      color={"#cecece"}
-                      fontSize={"md"}
-                      textTransform={"capitalize"}
-                    >
-                      {item.winner}
-                    </Table.Cell>
-                    <Table.Cell
-                      textAlign={"end"}
-                      paddingRight={5}
-                      color={"#cecece"}
-                      fontSize={"md"}
-                    >
-                      {item.points}
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table.Root>
-          </Table.ScrollArea>
-        </Box>
-      </Card.Body>
-    </Card.Root>
+                    {item.points}
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </CardBody>
+    </Card>
   );
 }
 
