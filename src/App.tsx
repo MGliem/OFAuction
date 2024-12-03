@@ -1,12 +1,12 @@
 import { useState } from "react";
 import PointsCard from "./components/racepoints/PointsCard";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { MdOutlineSave, MdOutlineModeEdit } from "react-icons/md";
 import { type AuctionHistory, type RaceColor, type Race } from "./types";
 import AuctionCard from "./components/auction/AuctionCard";
 import HistoryCard from "./components/history/HistoryCard";
 import shuffleArray from "./helpers/shuffleArray";
 import { motion } from "motion/react";
+import { LockIcon, UnlockIcon } from "@chakra-ui/icons";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -160,7 +160,8 @@ function App() {
               gap={5}
             >
               {groupedRace.map((race, j) => (
-                <Box as={motion.div}
+                <Box
+                  as={motion.div}
                   key={j}
                   width={{ base: "100%", lg: "60%", "2xl": "320px" }}
                 >
@@ -193,18 +194,9 @@ function App() {
               borderColor: "#848484",
             }}
             onClick={() => savePoints()}
+            leftIcon={showEdit ? <LockIcon /> : <UnlockIcon />}
           >
-            {showEdit ? (
-              <>
-                <MdOutlineSave />
-                {"Save"}
-              </>
-            ) : (
-              <>
-                <MdOutlineModeEdit />
-                {"Edit"}
-              </>
-            )}
+            {showEdit ? "Lock" : "Edit"}
           </Button>
         </Box>
       </Box>
