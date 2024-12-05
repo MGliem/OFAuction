@@ -111,13 +111,13 @@ function RaceAuction({
                     ? 40
                     : 25
                 }
-                paddingBottom={"10px"}
                 flex={1}
               >
                 {currentBid}
               </Text>
             </Flex>
             <Button
+              size={"sm"}
               color={"#000"}
               bg={"#cecece"}
               _hover={{ bg: "#eaeaea" }}
@@ -127,8 +127,8 @@ function RaceAuction({
                 borderColor: "#848484",
               }}
               leftIcon={<CheckIcon />}
-              fontSize={15}
-              marginBlock={4}
+              fontSize={{base: 15, lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)"}}
+              marginBlock={2}
               disabled={totalPoints - incrementByFiftyMultiple() < 0}
               style={{ textWrap: "wrap" }}
               onClick={() => {
@@ -152,6 +152,7 @@ function RaceAuction({
             />
             <Button
               color={"#000"}
+              size={"sm"}
               bg={"#cecece"}
               _hover={{ bg: "#eaeaea" }}
               _active={{
@@ -159,8 +160,8 @@ function RaceAuction({
                 transform: "scale(0.98)",
                 borderColor: "#848484",
               }}
-              fontSize={15}
-              marginBlock={4}
+              fontSize={{base: 15, lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)"}}
+              marginBlock={2}
               leftIcon={<CloseIcon />}
               onClick={() => setIsPass(true)}
             >

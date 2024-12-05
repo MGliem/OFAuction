@@ -139,8 +139,8 @@ function App() {
         <Text
           color={"#cecece"}
           fontWeight={"bold"}
-          fontSize={"xl"}
-          marginBottom={10}
+          fontSize={"md"}
+          marginBottom={4}
         >
           {"Points"}
         </Text>
@@ -185,6 +185,7 @@ function App() {
         </Flex>
         <Box textAlign={"center"} marginTop={30}>
           <Button
+            size={"sm"}
             color={"#000"}
             bg={"#cecece"}
             _hover={{ bg: "#eaeaea" }}
