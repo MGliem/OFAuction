@@ -20,7 +20,7 @@ function PointsCard({
 
   return (
     <Card
-      height={"240px"}
+      height={"200px"}
       backgroundColor={"#181818"}
       borderColor={race.color}
       borderWidth={"2px"}
