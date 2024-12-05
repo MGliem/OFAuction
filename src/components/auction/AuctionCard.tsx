@@ -75,8 +75,6 @@ function AuctionCard({
                 width={{ base: "100%", md: "420px" }}
                 value={currentItem}
                 onChange={(e) => setCurrentItem(e.target.value)}
-                placeholder={"Anything you want. Not required."}
-                _placeholder={{ color: "#a3a3a3" }}
               />
             </FormControl>
           </Box>

@@ -1,4 +1,5 @@
 import { type Race, type RaceColor } from "@/types";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Button,
   Card,
@@ -7,11 +8,10 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import OverBidModal from "./OverBidModal";
-import CustomBidModal from "./CustomBidModal";
 import { motion } from "motion/react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
+import CustomBidModal from "./CustomBidModal";
+import OverBidModal from "./OverBidModal";
 
 function RaceAuction({
   race,
