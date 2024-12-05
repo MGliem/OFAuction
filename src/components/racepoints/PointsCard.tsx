@@ -36,7 +36,7 @@ function PointsCard({
           borderBottom={"2px solid #cecece"}
           margin={0}
           paddingBottom={6}
-          fontSize={40}
+          fontSize={30}
           style={{ textWrap: "nowrap" }}
         >
           {race.name}

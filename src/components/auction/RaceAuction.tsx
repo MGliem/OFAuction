@@ -78,7 +78,7 @@ function RaceAuction({
             borderBottom={"2px solid #cecece"}
             marginBottom={2}
             paddingBottom={8}
-            fontSize={40}
+            fontSize={30}
             style={{ textWrap: "nowrap" }}
           >
             {race.name}
