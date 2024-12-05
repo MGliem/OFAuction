@@ -39,6 +39,7 @@ function CustomBidModal({
   return (
     <>
       <Button
+        size={"sm"}
         color={"#000"}
         bg={"#cecece"}
         _hover={{ bg: "#eaeaea" }}
@@ -47,7 +48,7 @@ function CustomBidModal({
           transform: "scale(0.98)",
           borderColor: "#848484",
         }}
-        fontSize={15}
+        fontSize={{base: 15, lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)"}}
         style={{ textWrap: "wrap" }}
         leftIcon={<EditIcon />}
         onClick={onOpen}

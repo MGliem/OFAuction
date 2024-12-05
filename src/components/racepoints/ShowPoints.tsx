@@ -13,7 +13,7 @@ function ShowPoints({ points }: { points: number }) {
     >
       <Text
         textAlign={"center"}
-        fontSize={30}
+        fontSize={25}
         paddingInline={15}
         color={"#ebe53c"}
       >

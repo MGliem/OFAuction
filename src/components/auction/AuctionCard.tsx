@@ -63,10 +63,10 @@ function AuctionCard({
         <Flex flexDirection={"column"}>
           <Text
             color={"#cecece"}
-            fontSize={"xl"}
+            fontSize={"md"}
             fontWeight={"bold"}
           >{`Auction #${auctionNumber}`}</Text>
-          <Box margin={5}>
+          <Box marginTop={2}>
             <FormControl>
               <FormLabel color={"#cecece"} fontSize={"md"}>
                 {"Item(s):"}
@@ -78,10 +78,8 @@ function AuctionCard({
               />
             </FormControl>
           </Box>
-          <Text color={"#cecece"} fontSize={18} marginBlock={3}>
-            {"Bids: "}
-          </Text>
           <Button
+            size={"sm"}
             color={"#000"}
             bg={"#cecece"}
             _hover={{ bg: "#eaeaea" }}
@@ -93,6 +91,7 @@ function AuctionCard({
             leftIcon={<RepeatIcon />}
             onClick={() => randomizeAndGroupRaces()}
             marginInline={"auto"}
+            marginTop={"4"}
             disabled={currentWinningPoints > 0}
             fontSize={16}
             marginBottom={5}
@@ -145,6 +144,7 @@ function AuctionCard({
           </Flex>
           <Box marginInline={"auto"} marginTop={7}>
             <Button
+              size={"sm"}
               color={"#000"}
               bg={"#cecece"}
               _hover={{ bg: "#eaeaea" }}

@@ -20,7 +20,7 @@ function PointsCard({
 
   return (
     <Card
-      height={"240px"}
+      height={"200px"}
       backgroundColor={"#181818"}
       borderColor={race.color}
       borderWidth={"2px"}
@@ -36,7 +36,7 @@ function PointsCard({
           borderBottom={"2px solid #cecece"}
           margin={0}
           paddingBottom={6}
-          fontSize={40}
+          fontSize={30}
           style={{ textWrap: "nowrap" }}
         >
           {race.name}
