@@ -1,12 +1,12 @@
-import { useState } from "react";
-import PointsCard from "./components/racepoints/PointsCard";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import { type AuctionHistory, type RaceColor, type Race } from "./types";
-import AuctionCard from "./components/auction/AuctionCard";
-import HistoryCard from "./components/history/HistoryCard";
-import shuffleArray from "./helpers/shuffleArray";
-import { motion } from "motion/react";
+import AuctionCard from "@/components/auction/AuctionCard";
+import HistoryCard from "@/components/history/HistoryCard";
+import PointsCard from "@/components/racepoints/PointsCard";
+import shuffleArrayNoSameIndex from "@/helpers/shuffleArray";
+import { type AuctionHistory, type Race, type RaceColor } from "@/types";
 import { LockIcon, UnlockIcon } from "@chakra-ui/icons";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -56,7 +56,7 @@ function App() {
     useState<RaceColor[][]>(staticGroupedRaces);
 
   const randomizeAndGroupRaces = () => {
-    const randomizeRaces = shuffleArray(races);
+    const randomizeRaces = shuffleArrayNoSameIndex(races);
 
     const groupedRaces = [];
     for (let i = 0; i < randomizeRaces.length; i += 2) {
@@ -124,6 +124,10 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    randomizeAndGroupRaces();
+  }, []);
+
   return (
     <>
       <Box
@@ -132,7 +136,7 @@ function App() {
         marginTop={5}
         padding={5}
         backgroundColor={"#181818"}
-        border={"2px solid #cecece"}
+        border={"0px solid #cecece"}
         borderRadius={"10px"}
         boxShadow={"3px 2px 10px -1px #000000"}
       >
