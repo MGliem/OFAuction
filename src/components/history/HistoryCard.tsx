@@ -54,7 +54,7 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
       marginInline={"auto"}
       marginBottom={5}
       backgroundColor={"#181818"}
-      border={"2px solid #cecece"}
+      border={"0px solid #cecece"}
       boxShadow={"3px 2px 10px -1px #000000"}
     >
       <CardBody>

@@ -132,7 +132,7 @@ function App() {
         marginTop={5}
         padding={5}
         backgroundColor={"#181818"}
-        border={"2px solid #cecece"}
+        border={"0px solid #cecece"}
         borderRadius={"10px"}
         boxShadow={"3px 2px 10px -1px #000000"}
       >
