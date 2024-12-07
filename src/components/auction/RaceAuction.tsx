@@ -1,7 +1,7 @@
 import CustomBidModal from "@/components/auction/CustomBidModal";
 import OverBidModal from "@/components/auction/OverBidModal";
 import { type Race, type RaceColor } from "@/types";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import {
   Button,
   Card,
@@ -63,7 +63,8 @@ function RaceAuction({
   return (
     <>
       <Card
-        display={isPass ? "none" : "flex"}
+        position={"relative"}
+        display={"flex"}
         backgroundColor={"#181818"}
         borderColor={race.color}
         borderWidth={"2px"}
@@ -71,6 +72,46 @@ function RaceAuction({
         borderRadius={"10px"}
         boxShadow={"3px 2px 10px -1px #000000"}
       >
+        {isPass ? (
+          <Flex
+            flexDirection={"column"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            position={"absolute"}
+            h={"100%"}
+            w={"100%"}
+            borderRadius={"10px"}
+            top={0}
+            left={0}
+            zIndex={1}
+            backgroundColor={"#101010e3"}
+            paddingInline={"15%"}
+            paddingTop={"25px"}
+          >
+            <Button
+              color={"#000"}
+              size={"sm"}
+              bg={"#cecece"}
+              _hover={{ bg: "#eaeaea" }}
+              _active={{
+                bg: "#dddfe2",
+                transform: "scale(0.98)",
+                borderColor: "#848484",
+              }}
+              fontSize={{
+                base: 15,
+                lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)",
+              }}
+              marginBlock={2}
+              leftIcon={<ArrowBackIcon />}
+              onClick={() => setIsPass(false)}
+            >
+              {"Cancel pass"}
+            </Button>
+          </Flex>
+        ) : (
+          ""
+        )}
         <CardBody>
           <Text
             color={"#cecece"}
@@ -127,7 +168,10 @@ function RaceAuction({
                 borderColor: "#848484",
               }}
               leftIcon={<CheckIcon />}
-              fontSize={{base: 15, lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)"}}
+              fontSize={{
+                base: 15,
+                lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)",
+              }}
               marginBlock={2}
               disabled={totalPoints - incrementByFiftyMultiple() < 0}
               style={{ textWrap: "wrap" }}
@@ -160,7 +204,10 @@ function RaceAuction({
                 transform: "scale(0.98)",
                 borderColor: "#848484",
               }}
-              fontSize={{base: 15, lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)"}}
+              fontSize={{
+                base: 15,
+                lg: "clamp(0.75rem, -0.1875rem + 1.6667vw, 0.9375rem)",
+              }}
               marginBlock={2}
               leftIcon={<CloseIcon />}
               onClick={() => setIsPass(true)}
