@@ -1,3 +1,7 @@
+import RaceAuction from "@/components/auction/RaceAuction";
+import TextInput from "@/components/ui/TextInput";
+import { type Race, type RaceColor } from "@/types";
+import { ArrowForwardIcon, RepeatIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -8,12 +12,8 @@ import {
   FormLabel,
   Text,
 } from "@chakra-ui/react";
-import TextInput from "@/components/ui/TextInput";
-import { type Race, type RaceColor } from "@/types";
-import RaceAuction from "./RaceAuction";
-import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowForwardIcon, RepeatIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
 function AuctionCard({
   auctionNumber,

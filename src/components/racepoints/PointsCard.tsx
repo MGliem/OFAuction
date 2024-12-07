@@ -1,7 +1,7 @@
-import { Card, CardBody, Flex, Text } from "@chakra-ui/react";
+import EditPoints from "@/components/racepoints/EditPoints";
+import ShowPoints from "@/components/racepoints/ShowPoints";
 import { type Race, type RaceColor } from "@/types";
-import EditPoints from "./EditPoints";
-import ShowPoints from "./ShowPoints";
+import { Card, CardBody, Flex, Text } from "@chakra-ui/react";
 
 function PointsCard({
   race,

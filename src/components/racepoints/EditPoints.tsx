@@ -1,7 +1,7 @@
-import TextInput from "../ui/TextInput";
-import { useState } from "react";
-import { Box, FormControl, FormLabel } from "@chakra-ui/react";
+import TextInput from "@/components/ui/TextInput";
 import isStringNumber from "@/helpers/isStringNumber";
+import { Box, FormControl, FormLabel } from "@chakra-ui/react";
+import { useState } from "react";
 
 function EditPoints({
   points,
