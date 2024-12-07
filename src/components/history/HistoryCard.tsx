@@ -1,4 +1,5 @@
 import { AuctionHistory } from "@/types";
+import { ArrowDownIcon } from "@chakra-ui/icons";
 import {
   Card,
   CardBody,
@@ -13,9 +14,13 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
+type ColumnName = "auction" | "item" | "winner" | "points";
+
 function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
   const [sortedHistory, setSortedHistory] =
     useState<AuctionHistory[]>(auctionHistory);
+  const [filterIconColumn, setFilterIconColumn] =
+    useState<ColumnName>("auction");
 
   useEffect(() => {
     setSortedHistory(auctionHistory);
@@ -45,6 +50,7 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
       });
     }
 
+    setFilterIconColumn(sortBy);
     setSortedHistory(newSortedHistory);
   };
 
@@ -72,7 +78,7 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
         >
           <Table size={"sm"} variant="simple">
             <Thead position={"sticky"} top={0} zIndex={"docked"}>
-              <Tr bg={"#2a2a2a"}>
+              <Tr bg={"#2a2a2a"} h={"35px"}>
                 <Th
                   w={"50px"}
                   paddingLeft={5}
@@ -84,6 +90,11 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                   cursor={"pointer"}
                 >
                   {"Auction"}
+                  <ArrowDownIcon
+                    color={
+                      filterIconColumn == "auction" ? "#cecece" : "#2a2a2a"
+                    }
+                  />
                 </Th>
                 <Th
                   color={"#cecece"}
@@ -94,6 +105,9 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                   cursor={"pointer"}
                 >
                   {"Item(s)"}
+                  <ArrowDownIcon
+                    color={filterIconColumn == "item" ? "#cecece" : "#2a2a2a"}
+                  />
                 </Th>
                 <Th
                   color={"#cecece"}
@@ -104,6 +118,9 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                   cursor={"pointer"}
                 >
                   {"Winner"}
+                  <ArrowDownIcon
+                    color={filterIconColumn == "winner" ? "#cecece" : "#2a2a2a"}
+                  />
                 </Th>
                 <Th
                   textAlign={"end"}
@@ -116,6 +133,9 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                   cursor={"pointer"}
                 >
                   {"Points"}
+                  <ArrowDownIcon
+                    color={filterIconColumn == "points" ? "#cecece" : "#2a2a2a"}
+                  />
                 </Th>
               </Tr>
             </Thead>
