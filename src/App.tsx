@@ -63,6 +63,12 @@ function App() {
       groupedRaces.push(randomizeRaces.slice(i, i + 2));
     }
     setRandomizedGroupedRaces(groupedRaces);
+    setBids({
+      tauren: 0,
+      orc: 0,
+      undead: 0,
+      troll: 0,
+    });
   };
 
   const savePoints = () => {
