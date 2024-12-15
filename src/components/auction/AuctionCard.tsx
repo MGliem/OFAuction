@@ -67,7 +67,7 @@ function AuctionCard({
             fontWeight={"bold"}
           >{`Auction #${auctionNumber}`}</Text>
           <Box marginTop={2}>
-            <FormControl>
+            <FormControl display={"none"}>
               <FormLabel color={"#cecece"} fontSize={"md"}>
                 {"Item(s):"}
               </FormLabel>
