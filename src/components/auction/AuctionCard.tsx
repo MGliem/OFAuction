@@ -79,6 +79,7 @@ function AuctionCard({
             </FormControl>
           </Box>
           <Button
+            display={"none"}
             size={"sm"}
             color={"#000"}
             bg={"#cecece"}
@@ -94,11 +95,11 @@ function AuctionCard({
             marginTop={"4"}
             disabled={currentWinningPoints > 0}
             fontSize={16}
-            marginBottom={5}
           >
             {"Randomize order"}
           </Button>
           <Flex
+            marginTop={5}
             gap={5}
             justifyContent={"center"}
             alignItems={"center"}
