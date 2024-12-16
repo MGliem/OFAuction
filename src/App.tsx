@@ -4,9 +4,21 @@ import PointsCard from "@/components/racepoints/PointsCard";
 import shuffleArrayNoSameIndex from "@/helpers/shuffleArray";
 import { type AuctionHistory, type Race, type RaceColor } from "@/types";
 import { LockIcon, UnlockIcon } from "@chakra-ui/icons";
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -36,16 +48,16 @@ const staticGroupedRaces = [
 
 function App() {
   const [points, setPoints] = useState({
-    tauren: 0,
     orc: 0,
     undead: 0,
     troll: 0,
+    tauren: 0,
   });
   const [bids, setBids] = useState({
-    tauren: 0,
     orc: 0,
-    undead: 0,
     troll: 0,
+    tauren: 0,
+    undead: 0,
   });
   const [showEdit, setShowEdit] = useState(true);
   const [isFirstTimePointsSet, setIsFirstTimePointsSet] = useState(false);
@@ -54,6 +66,10 @@ function App() {
   const [auctionHistory, setAuctionHistory] = useState<AuctionHistory[]>([]);
   const [randomizedGroupedRaces, setRandomizedGroupedRaces] =
     useState<RaceColor[][]>(staticGroupedRaces);
+
+  const multipleWinners = useRef<Race[]>([]);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const randomizeAndGroupRaces = () => {
     const randomizeRaces = shuffleArrayNoSameIndex(races);
@@ -64,10 +80,10 @@ function App() {
     }
     setRandomizedGroupedRaces(groupedRaces);
     setBids({
-      tauren: 0,
       orc: 0,
-      undead: 0,
       troll: 0,
+      tauren: 0,
+      undead: 0,
     });
   };
 
@@ -90,19 +106,55 @@ function App() {
     setBids(newBids);
   };
 
-  const nextAuction = () => {
-    const [currentWinningRace, currentWinningPoints] = Object.entries(
-      bids,
-    ).reduce((max, current) => {
-      return current[1] > max[1] ? current : max;
-    });
+  const handleMultipleWinnerModal = (winner: Race) => {
+    const newBids = { ...bids };
+    for (let i = 0; i < multipleWinners.current.length; i++) {
+      if (winner !== multipleWinners.current[i]) {
+        newBids[multipleWinners.current[i]] = 0;
+      }
+    }
+    setBids(newBids);
+  };
+
+  const nextAuction = useCallback(() => {
+    type Accumulator = [string | null, number, string[]];
+
+    const [currentWinningRace, currentWinningPoints, possibleWinners] =
+      Object.entries(bids).reduce<Accumulator>(
+        (acc, current) => {
+          if (current[1] > acc[1]) {
+            return [current[0], current[1], [current[0]]];
+          }
+
+          if (current[1] === acc[1] && current[1] > 0) {
+            acc[2].push(current[0]);
+          }
+
+          return acc;
+        },
+        [null, -Infinity, []],
+      );
+
+    if (possibleWinners.length > 1) {
+      console.log(possibleWinners);
+      multipleWinners.current = possibleWinners as Race[];
+      onOpen();
+      return;
+    }
+
+    multipleWinners.current = [];
 
     setAuctionHistory([
       ...auctionHistory,
       {
         auction: auctionNumber,
         item: currentItem,
-        winner: currentWinningPoints > 0 ? currentWinningRace : "Nobody",
+        winner:
+          currentWinningPoints > 0
+            ? currentWinningRace
+              ? currentWinningRace
+              : "Something went wrong"
+            : "Nobody",
         points: currentWinningPoints,
       },
     ]);
@@ -128,11 +180,17 @@ function App() {
       undead: 0,
       troll: 0,
     });
-  };
+  }, [auctionHistory, auctionNumber, bids, currentItem, onOpen, points]);
 
   // useEffect(() => {
   //   randomizeAndGroupRaces();
   // }, []);
+
+  useEffect(() => {
+    if (multipleWinners.current.length > 0) {
+      nextAuction();
+    }
+  }, [bids, nextAuction]);
 
   return (
     <>
@@ -231,6 +289,54 @@ function App() {
       ) : (
         ""
       )}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        autoFocus={false}
+        closeOnEsc={false}
+        closeOnOverlayClick={false}
+      >
+        <ModalOverlay />
+        <ModalContent bg={"#171717"} height={"300px"}>
+          <ModalHeader fontSize={"xl"} color={"orange"}>
+            {"Multiple potential winners"}
+          </ModalHeader>
+          <ModalBody
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"center"}
+            fontSize={"lg"}
+            textAlign={"center"}
+          >
+            <Text>{`There is multiple races with the same bid.`}</Text>
+            <Text>{`Who should win?`}</Text>
+          </ModalBody>
+          <ModalFooter display={"flex"} justifyContent={"center"}>
+            {multipleWinners.current.map((winner) => (
+              <Button
+                key={winner}
+                color={"#000"}
+                bg={"#cecece"}
+                _hover={{ bg: "#eaeaea" }}
+                _active={{
+                  bg: "#dddfe2",
+                  transform: "scale(0.98)",
+                  borderColor: "#848484",
+                }}
+                marginRight={2}
+                onClick={() => {
+                  handleMultipleWinnerModal(winner);
+                  onClose();
+                }}
+                textTransform={"capitalize"}
+              >
+                {winner}
+              </Button>
+            ))}
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 }
