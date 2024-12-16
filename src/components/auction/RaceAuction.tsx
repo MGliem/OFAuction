@@ -85,7 +85,7 @@ function RaceAuction({
                 borderImage: `conic-gradient(from var(--a), #181818, ${race.color}, #181818) 1`,
                 filter: "blur(.3em)",
                 animation: "spin 4s linear infinite",
-                zIndex: 1,
+                zIndex: 0,
               }
             : {}
         }
