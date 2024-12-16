@@ -43,7 +43,7 @@ function AuctionCard({
     const [currentWinningRace, currentWinningPoints] = Object.entries(
       bids,
     ).reduce((max, current) => {
-      return current[1] > max[1] ? current : max;
+      return current[1] >= max[1] ? current : max;
     });
     setCurrentWinningRace(currentWinningRace);
     setCurrentWinningPoints(currentWinningPoints);
