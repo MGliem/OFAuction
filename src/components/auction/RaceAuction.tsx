@@ -57,6 +57,12 @@ function RaceAuction({
     setCustomBidInput("");
   };
 
+  const handlePass = () => {
+    setIsPass(true);
+    setBidPoints(0, race.name.toLowerCase() as Race);
+    setCurrentBid(0);
+  };
+
   const incrementByFiftyMultiple = () => {
     return Math.ceil(currentWinningPoints / 50) * 50 + 50;
   };
@@ -235,7 +241,7 @@ function RaceAuction({
               }}
               marginBlock={2}
               leftIcon={<CloseIcon />}
-              onClick={() => setIsPass(true)}
+              onClick={() => handlePass()}
             >
               {"Pass"}
             </Button>
