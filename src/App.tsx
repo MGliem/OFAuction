@@ -66,7 +66,10 @@ function App() {
   const [auctionHistory, setAuctionHistory] = useState<AuctionHistory[]>([]);
   const [randomizedGroupedRaces, setRandomizedGroupedRaces] =
     useState<RaceColor[][]>(staticGroupedRaces);
+  const [lastStartRace, setLastStartRace] = useState<Race | null>(null);
 
+  const currentAuctionFirstRaceIsSet = useRef(false);
+  const tempStartRace = useRef<Race | null>();
   const multipleWinners = useRef<Race[]>([]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -103,6 +106,12 @@ function App() {
   const setBidPoints = (bid: number, race: Race) => {
     const newBids = { ...bids };
     newBids[race] = bid;
+
+    if (!currentAuctionFirstRaceIsSet.current) {
+      currentAuctionFirstRaceIsSet.current = true;
+      tempStartRace.current = race;
+    }
+
     setBids(newBids);
   };
 
@@ -136,7 +145,6 @@ function App() {
       );
 
     if (possibleWinners.length > 1) {
-      console.log(possibleWinners);
       multipleWinners.current = possibleWinners as Race[];
       onOpen();
       return;
@@ -171,6 +179,14 @@ function App() {
     ) {
       newPoints[currentWinningRace] -= currentWinningPoints;
     }
+
+    currentAuctionFirstRaceIsSet.current = false;
+
+    if (tempStartRace.current) {
+      setLastStartRace(tempStartRace.current);
+    }
+
+    tempStartRace.current = null;
 
     setPoints(newPoints);
 
@@ -282,6 +298,7 @@ function App() {
               setBidPoints={setBidPoints}
               groupedRaces={randomizedGroupedRaces}
               randomizeAndGroupRaces={randomizeAndGroupRaces}
+              lastStartRace={lastStartRace}
             />
           </Box>
           <HistoryCard auctionHistory={auctionHistory} />

@@ -25,6 +25,7 @@ function AuctionCard({
   setBidPoints,
   groupedRaces,
   randomizeAndGroupRaces,
+  lastStartRace,
 }: {
   auctionNumber: number;
   currentItem: string;
@@ -35,6 +36,7 @@ function AuctionCard({
   setBidPoints: (bid: number, race: Race) => void;
   groupedRaces: RaceColor[][];
   randomizeAndGroupRaces: () => void;
+  lastStartRace: Race | null;
 }) {
   const [currentWinningRace, setCurrentWinningRace] = useState("");
   const [currentWinningPoints, setCurrentWinningPoints] = useState(0);
@@ -66,8 +68,12 @@ function AuctionCard({
             fontSize={"lg"}
             fontWeight={"bold"}
           >{`Auction #${auctionNumber}`}</Text>
-          <Box marginTop={2}>
-            <FormControl marginTop={3}>
+          <Flex
+            marginTop={2}
+            alignItems={"center"}
+            flexDirection={{ base: "column", lg: "row" }}
+          >
+            <FormControl marginTop={3} width={"fit-content"}>
               <FormLabel color={"#cecece"} fontSize={"md"}>
                 {"Container:"}
               </FormLabel>
@@ -77,7 +83,17 @@ function AuctionCard({
                 onChange={(e) => setCurrentItem(e.target.value)}
               />
             </FormControl>
-          </Box>
+            <Text
+              color={"orange"}
+              fontSize={"lg"}
+              marginLeft={{base: "auto", md: "-150px"}}
+              width={"100%"}
+              textAlign={"center"}
+              marginTop={"43px"}
+            >
+              {lastStartRace ? `Previous starting was ${lastStartRace}` : null}
+            </Text>
+          </Flex>
           <Button
             display={"none"}
             size={"sm"}
