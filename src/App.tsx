@@ -6,7 +6,7 @@ import { type AuctionHistory, type Race, type RaceColor } from "@/types";
 import { LockIcon, UnlockIcon } from "@chakra-ui/icons";
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const tauren: RaceColor = {
   name: "Tauren",
@@ -28,10 +28,10 @@ const troll: RaceColor = {
   color: "#34709d",
 };
 
-const races = [tauren, orc, undead, troll];
+const races = [orc, troll, tauren, undead];
 const staticGroupedRaces = [
-  [tauren, orc],
-  [undead, troll],
+  [orc, troll],
+  [tauren, undead],
 ];
 
 function App() {
@@ -130,9 +130,9 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    randomizeAndGroupRaces();
-  }, []);
+  // useEffect(() => {
+  //   randomizeAndGroupRaces();
+  // }, []);
 
   return (
     <>
