@@ -63,16 +63,16 @@ function AuctionCard({
         <Flex flexDirection={"column"}>
           <Text
             color={"#cecece"}
-            fontSize={"md"}
+            fontSize={"lg"}
             fontWeight={"bold"}
           >{`Auction #${auctionNumber}`}</Text>
           <Box marginTop={2}>
-            <FormControl display={"none"}>
+            <FormControl marginTop={3}>
               <FormLabel color={"#cecece"} fontSize={"md"}>
-                {"Item(s):"}
+                {"Container:"}
               </FormLabel>
               <TextInput
-                width={{ base: "100%", md: "420px" }}
+                width={{ base: "100%", md: "150px" }}
                 value={currentItem}
                 onChange={(e) => setCurrentItem(e.target.value)}
               />
