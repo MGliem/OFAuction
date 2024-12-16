@@ -149,7 +149,7 @@ function App() {
         <Text
           color={"#cecece"}
           fontWeight={"bold"}
-          fontSize={"md"}
+          fontSize={"lg"}
           marginBottom={4}
         >
           {"Points"}
@@ -160,7 +160,7 @@ function App() {
           flexDirection={{ base: "column", lg: "row" }}
           gap={5}
         >
-          {staticGroupedRaces.map((groupedRace, i) => (
+          {randomizedGroupedRaces.map((groupedRace, i) => (
             <Flex
               key={i}
               flexDirection={{ base: "column", md: "row" }}

@@ -104,7 +104,7 @@ function HistoryCard({ auctionHistory }: { auctionHistory: AuctionHistory[] }) {
                   onClick={() => sortHistory("item", false)}
                   cursor={"pointer"}
                 >
-                  {"Item(s)"}
+                  {"Container"}
                   <ArrowDownIcon
                     color={filterIconColumn == "item" ? "#cecece" : "#2a2a2a"}
                   />
