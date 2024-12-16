@@ -10,6 +10,7 @@ import {
   Flex,
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -306,19 +307,13 @@ function App() {
       ) : (
         ""
       )}
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        isCentered
-        autoFocus={false}
-        closeOnEsc={false}
-        closeOnOverlayClick={false}
-      >
+      <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
         <ModalOverlay />
         <ModalContent bg={"#171717"} height={"300px"}>
           <ModalHeader fontSize={"xl"} color={"orange"}>
             {"Multiple potential winners"}
           </ModalHeader>
+          <ModalCloseButton />
           <ModalBody
             display={"flex"}
             flexDirection={"column"}
