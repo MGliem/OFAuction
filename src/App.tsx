@@ -199,6 +199,10 @@ function App() {
     });
   }, [auctionHistory, auctionNumber, bids, currentItem, onOpen, points]);
 
+  const handleCloseMultipleWinners = () => {
+    multipleWinners.current = [];
+  };
+
   // useEffect(() => {
   //   randomizeAndGroupRaces();
   // }, []);
@@ -307,13 +311,20 @@ function App() {
       ) : (
         ""
       )}
-      <Modal isOpen={isOpen} onClose={onClose} isCentered autoFocus={false}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        autoFocus={false}
+        onEsc={() => handleCloseMultipleWinners()}
+        onOverlayClick={() => handleCloseMultipleWinners()}
+      >
         <ModalOverlay />
         <ModalContent bg={"#171717"} height={"300px"}>
           <ModalHeader fontSize={"xl"} color={"orange"}>
             {"Multiple potential winners"}
           </ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton onClick={() => handleCloseMultipleWinners()} />
           <ModalBody
             display={"flex"}
             flexDirection={"column"}

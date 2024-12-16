@@ -91,7 +91,7 @@ function AuctionCard({
               textAlign={"center"}
               marginTop={"43px"}
             >
-              {lastStartRace ? `Previous starting was ${lastStartRace}` : null}
+              {lastStartRace ? `Previous starting race was ${lastStartRace}` : null}
             </Text>
           </Flex>
           <Button
