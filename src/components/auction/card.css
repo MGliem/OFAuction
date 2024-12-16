@@ -1,0 +1,7 @@
+@property --a {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false
+}
+
+@keyframes spin { to { --a: 1turn } }

@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
+import "./card.css";
 
 function RaceAuction({
   race,
@@ -65,12 +66,29 @@ function RaceAuction({
       <Card
         position={"relative"}
         display={"flex"}
+        height={"330px"}
         backgroundColor={"#181818"}
         borderColor={race.color}
         borderWidth={"2px"}
         borderStyle={"solid"}
         borderRadius={"10px"}
         boxShadow={"3px 2px 10px -1px #000000"}
+        _before={
+          currentWinningRace === race.name.toLowerCase() &&
+          currentWinningPoints > 0
+            ? {
+                content: '""',
+                position: "absolute",
+                inset: "-5px",
+                borderWidth: "10px",
+                borderStyle: "solid",
+                borderImage: `conic-gradient(from var(--a), #181818, ${race.color}, #181818) 1`,
+                filter: "blur(.3em)",
+                animation: "spin 4s linear infinite",
+                zIndex: 1,
+              }
+            : {}
+        }
       >
         {isPass ? (
           <Flex
