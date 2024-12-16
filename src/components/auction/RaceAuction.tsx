@@ -83,7 +83,7 @@ function RaceAuction({
             borderRadius={"10px"}
             top={0}
             left={0}
-            zIndex={1}
+            zIndex={99}
             backgroundColor={"#101010e3"}
             paddingInline={"15%"}
             paddingTop={"25px"}
@@ -109,12 +109,16 @@ function RaceAuction({
               {"Cancel pass"}
             </Button>
           </Flex>
-        ) : (
-          null
-        )}
-        <CardBody>
+        ) : null}
+        <CardBody
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           <Text
             color={"#cecece"}
+            width={"100%"}
             textAlign={"center"}
             borderBottom={"2px solid #cecece"}
             marginBottom={2}
@@ -129,6 +133,8 @@ function RaceAuction({
             flexDirection={"column"}
             marginInline={"auto"}
             marginBlock={2}
+            justifyContent={"end"}
+            flexGrow={1}
           >
             <Flex
               as={motion.div}
@@ -136,6 +142,8 @@ function RaceAuction({
               animate={{ scale: 1 }}
               key={currentBid}
               justifyContent={"center"}
+              alignItems={"center"}
+              flexGrow={1}
             >
               <Text
                 textAlign={"center"}
@@ -149,10 +157,9 @@ function RaceAuction({
                 fontSize={
                   currentWinningRace === race.name.toLowerCase() &&
                   currentWinningPoints > 0
-                    ? 40
-                    : 25
+                    ? 35
+                    : 20
                 }
-                flex={1}
               >
                 {currentBid}
               </Text>
